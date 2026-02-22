@@ -3,7 +3,7 @@
 - **Name:** Rahul
 - **What to call them:** Rahul
 - **Pronouns:** he/him
-- **Timezone:** TBD (need to confirm)
+- **Timezone:** IST (UTC+5:30) — Surat, Gujarat, India
 - **Notes:** Founder mindset. Wants autonomous AI that earns, not just assists.
 
 ## Context
