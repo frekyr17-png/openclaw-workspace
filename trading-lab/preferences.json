@@ -1,0 +1,22 @@
+{
+  "trading": {
+    "markets": ["BTC/USDT", "ETH/USDT", "XAU/USD"],
+    "timeframes": ["4h", "1d"],
+    "riskPerTrade": 1,
+    "positionSize": {
+      "type": "percent",
+      "value": 2
+    },
+    "tradingDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "tradingHours": {
+      "start": "00:00 UTC",
+      "end": "23:59 UTC"
+    }
+  },
+  "strategies": {
+    "count": 5,
+    "types": ["trend", "meanrev", "breakout", "momentum", "swing"],
+    "evaluationPeriodDays": 30,
+    "winRateThreshold": 50
+  }
+}

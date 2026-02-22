@@ -1,0 +1,7 @@
+# Sensitive files - NEVER commit
+credentials.env
+*.env
+
+# Logs
+*.log
+logs/
