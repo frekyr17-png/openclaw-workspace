@@ -17,11 +17,18 @@ _Last updated: 2025-02-22_
 ## Active Projects
 
 ### Trading Lab (Cycle 1, started 2025-02-21)
-- 7 strategies on Binance testnet (5K USDT + 5K USDC paper money)
-- Standard (eval March 23): ALPHA-001 (trend/BTC/4h), BETA-001 (meanrev/ETH/4h), GAMMA-001 (breakout/BTC/1d), DELTA-001 (momentum/ETH/1d), EPSILON-001 (swing/BTC/4h)
-- Fast track (eval March 7): ZETA-001 (momentum/SOL/1h), ETA-001 (trend/XRP/1h)
-- Cron: every 4h for main bots, every 1h for fast track (Mon-Fri)
-- Early results: small losses on market pullback, too early to judge
+**Updated 2026-02-23: Switched to aggressive mode**
+- **GOAL:** 10% daily profit per bot = $10/day per $100 allocation = $200/month per bot
+- **12 strategies** on Binance testnet (5K USDT + 5K USDC paper)
+- **5-minute scalping** (runs every 5 min): KAPPA-001 (BTC), LAMBDA-001 (ETH), MU-001 (SOL), THETA-001 (XAU), IOTA-001 (XAU)
+- **1-hour fast track** (eval March 7): ZETA-001 (SOL), ETA-001 (XRP) → ETA leading at 55.6% win rate
+- **4-hour standard** (eval March 23): ALPHA-001 (BTC), BETA-001 (ETH), GAMMA-001 (BTC), DELTA-001 (ETH), EPSILON-001 (BTC)
+- **Rule:** No trade in 24h = adjust timeframe/strategy/kill the bot
+- **Strategy updated:** 
+  - Lowered thresholds (trend: 0.1%, meanrev: 1.0 z-score, momentum: 1.5% ROC)
+  - **Trade management:** Target 5-10% profit per trade, exit when hit
+  - **Daily target:** 10% gain per bot portfolio ($10 on $100 allocation)
+  - **Method:** 1 trade or 100 trades — doesn't matter, just hit the 10%
 
 ### AI Agent Market Research
 - Comprehensive list saved: research/ai-agent-alternatives.md
@@ -35,6 +42,7 @@ _Last updated: 2025-02-22_
 - n8n installed for workflow automation backbone
 
 ## Key Decisions
+- **2026-02-23:** Switched trading lab to AGGRESSIVE mode — optimize for trade frequency and speed to profitability
 - 2025-02-22: Evolved from assistant to autonomous co-founder
 - 2025-02-22: Installed n8n for automation backbone
 - 2025-02-22: Set up proactive heartbeat system

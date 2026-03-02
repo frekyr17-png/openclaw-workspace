@@ -1,0 +1,13 @@
+{
+  "created": "2026-02-23T04:51:37.448615",
+  "daily_stats": [],
+  "optimization_suggestions": [
+    "Replace regex extraction with Ollama local model",
+    "Add @lru_cache to expensive functions",
+    "Implement document type cache (same type = same parsing)",
+    "Batch similar document processing jobs",
+    "Add API call middleware to track every external request"
+  ],
+  "current_cost_estimate_usd": 0.0,
+  "potential_savings_usd": 0.0
+}

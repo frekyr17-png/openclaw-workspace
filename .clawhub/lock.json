@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "skills": {
+    "openclaw-skills-security-checker": {
+      "version": "0.1.0",
+      "installedAt": 1772464710305
+    },
+    "self-improving": {
+      "version": "1.1.3",
+      "installedAt": 1772473096506
+    },
+    "memory-setup": {
+      "version": "1.0.0",
+      "installedAt": 1772473098009
+    },
+    "memory-manager": {
+      "version": "1.0.0",
+      "installedAt": 1772473100515
+    },
+    "self-evolving-skill": {
+      "version": "1.0.2",
+      "installedAt": 1772473103117
+    },
+    "moltguard": {
+      "version": "6.6.17",
+      "installedAt": 1772473177435
+    },
+    "clawrouter": {
+      "version": "0.10.5",
+      "installedAt": 1772473179276
+    },
+    "stock-market-pro": {
+      "version": "1.2.12",
+      "installedAt": 1772473181284
+    },
+    "trading-coach": {
+      "version": "1.0.0",
+      "installedAt": 1772473185460
+    },
+    "gold-trading-skill": {
+      "version": "1.0.0",
+      "installedAt": 1772473188822
+    },
+    "mt5-httpapi": {
+      "version": "1.1.0",
+      "installedAt": 1772473190977
+    },
+    "api-gateway": {
+      "version": "1.0.54",
+      "installedAt": 1772473198290
+    },
+    "playwright-mcp": {
+      "version": "1.0.0",
+      "installedAt": 1772473200299
+    },
+    "debug-pro": {
+      "version": "1.0.0",
+      "installedAt": 1772473203042
+    },
+    "automation-workflows": {
+      "version": "0.1.0",
+      "installedAt": 1772473205215
+    },
+    "n8n-workflow-automation": {
+      "version": "1.0.0",
+      "installedAt": 1772473207131
+    },
+    "shopify": {
+      "version": "1.0.1",
+      "installedAt": 1772473209362
+    },
+    "clickup": {
+      "version": "1.2.0",
+      "installedAt": 1772473211585
+    },
+    "asana": {
+      "version": "1.0.0",
+      "installedAt": 1772473213952
+    },
+    "accountant": {
+      "version": "1.0.0",
+      "installedAt": 1772473217576
+    },
+    "linkedin-lead-generation": {
+      "version": "1.0.0",
+      "installedAt": 1772473219780
+    },
+    "marketing-mode": {
+      "version": "1.0.0",
+      "installedAt": 1772473221745
+    },
+    "superdesign": {
+      "version": "1.0.0",
+      "installedAt": 1772473223365
+    },
+    "agent-directory": {
+      "version": "1.2.0",
+      "installedAt": 1772473225299
+    },
+    "free-ride": {
+      "version": "1.0.4",
+      "installedAt": 1772473228400
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1772473230111
+    }
+  }
+}

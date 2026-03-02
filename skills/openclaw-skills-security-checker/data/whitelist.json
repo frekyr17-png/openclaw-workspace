@@ -1,0 +1,62 @@
+{
+  "nano-banana-pro": {
+    "reason": "Google Gemini image generation - uses GEMINI_API_KEY",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "notion": {
+    "reason": "Notion API integration - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "trello": {
+    "reason": "Trello API integration - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "gog": {
+    "reason": "Google Workspace - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "bluebubbles": {
+    "reason": "iMessage bridge - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "local-places": {
+    "reason": "Google Places API proxy - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "1password": {
+    "reason": "1Password integration - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "weather": {
+    "reason": "Weather API - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "oracle": {
+    "reason": "AI reasoning service - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "sonoscli": {
+    "reason": "Sonos speakers - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "peekaboo": {
+    "reason": "Image search - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  },
+  "canvas": {
+    "reason": "Web canvas - legitimate",
+    "added_at": "2026-01-31",
+    "added_by": "ClaudiatheLobster"
+  }
+}
