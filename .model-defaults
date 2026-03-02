@@ -1,0 +1,19 @@
+# MODEL DEFAULTS - Cost Optimization
+
+# HEARTBEATS - Free only
+heartbeat_model=openrouter/free
+
+# CHAT - Cheap Claude
+chat_model=anthropic/claude-haiku-4
+
+# CODING - Free first, Haiku if needed
+code_model_free=openrouter/qwen/qwen3-coder:free
+code_model_paid=anthropic/claude-haiku-4
+
+# COMPLEX WORK - Mid-tier
+complex_model=anthropic/claude-sonnet-4-5
+
+# LAST RESORT - Premium
+premium_model=anthropic/claude-opus-4
+
+# NOTE: copilot-proxy models removed (not working)
