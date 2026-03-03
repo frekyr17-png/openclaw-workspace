@@ -447,7 +447,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/kimi-k2.5:cloud"
+        "primary": "anthropic/claude-haiku-4-5"
       },
       "models": {
         "anthropic/claude-3-5-haiku": {
