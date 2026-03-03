@@ -1,0 +1,13 @@
+{
+  "sessions": [
+    {
+      "time": "2026-03-03T01:31:36.256Z",
+      "provider": "anthropic",
+      "tokens": 1056,
+      "cost": 0.015012000000000001,
+      "currency": "USD"
+    }
+  ],
+  "daily": {},
+  "alerts": []
+}

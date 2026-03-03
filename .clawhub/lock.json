@@ -104,6 +104,34 @@
     "find-skills": {
       "version": "0.1.0",
       "installedAt": 1772473230111
+    },
+    "grammar": {
+      "version": "1.0.0",
+      "installedAt": 1772480274818
+    },
+    "token-manager": {
+      "version": "1.2.0",
+      "installedAt": 1772480284613
+    },
+    "token-budget-monitor": {
+      "version": "1.0.0",
+      "installedAt": 1772480286460
+    },
+    "moltbook-skill": {
+      "version": "1.1.0",
+      "installedAt": 1772482426428
+    },
+    "token-optimizer": {
+      "version": "1.0.18",
+      "installedAt": 1772482429415
+    },
+    "microsoft365": {
+      "version": "1.0.2",
+      "installedAt": 1772482436431
+    },
+    "base-trader": {
+      "version": "1.1.1",
+      "installedAt": 1772482453714
     }
   }
 }

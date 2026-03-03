@@ -1,5 +1,8 @@
 # HEARTBEAT.md
 
+**MODEL:** Use OpenRouter free models ONLY (OR-Free, Qwen3-80B, etc.)  
+**NO OPUS/SONNET for heartbeats - costs too much**
+
 ## Every Heartbeat (rotate, don't do all at once)
 
 ### Priority 1: Revenue Check

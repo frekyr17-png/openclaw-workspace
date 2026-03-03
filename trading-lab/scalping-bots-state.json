@@ -1,0 +1,120 @@
+[
+  {
+    "id": "SILVER-001",
+    "name": "Silver Flash Scalper",
+    "type": "momentum",
+    "market": "XAG/USDT",
+    "timeframe": "5m",
+    "subagent": "trading-silver-flash",
+    "status": "planned",
+    "deployed": null,
+    "expires": null,
+    "trades": [],
+    "stats": {
+      "wins": 0,
+      "losses": 0,
+      "winRate": 0
+    },
+    "allocation": 100,
+    "targets": {
+      "profit": "0.5-1%",
+      "profitTicks": "8-15 pips",
+      "stopLoss": "0.25%",
+      "stopTicks": "4-5 pips",
+      "riskReward": "2:1 to 4:1",
+      "entrySignal": "momentum_burst",
+      "positionSize": "$100"
+    },
+    "parameters": {
+      "atrPeriod": 14,
+      "momentumThreshold": 0.3,
+      "reversionLookback": 10,
+      "volumeConfirm": true,
+      "maxSlippage": "0.05%"
+    },
+    "fastTrack": true,
+    "phase": "paper",
+    "expectedWinRate": "55-65%",
+    "riskLevel": "high",
+    "notes": "Deploy Phase 2 after COPPER validation"
+  },
+  {
+    "id": "COPPER-001",
+    "name": "Palladium Breakout Scout",
+    "type": "breakout",
+    "market": "XPD/USDT",
+    "timeframe": "15m",
+    "subagent": "trading-palladium-breakout",
+    "status": "planned",
+    "deployed": null,
+    "expires": null,
+    "trades": [],
+    "stats": {
+      "wins": 0,
+      "losses": 0,
+      "winRate": 0
+    },
+    "allocation": 100,
+    "targets": {
+      "profit": "1-1.5%",
+      "profitTicks": "15-25 pips",
+      "stopLoss": "0.5%",
+      "stopTicks": "8-12 pips",
+      "riskReward": "2:1 to 3:1",
+      "entrySignal": "s_r_breakout",
+      "positionSize": "$100"
+    },
+    "parameters": {
+      "srLookback": 20,
+      "breakoutThreshold": "0.4%",
+      "volumeMultiplier": 1.5,
+      "confirmPeriods": 2,
+      "falseBreakoutFilter": true
+    },
+    "fastTrack": true,
+    "phase": "paper",
+    "expectedWinRate": "50-60%",
+    "riskLevel": "medium",
+    "notes": "Deploy Phase 1 - test scalping infrastructure"
+  },
+  {
+    "id": "ENERGY-001",
+    "name": "BTC Divergence Hunter",
+    "type": "meanrev",
+    "market": "BTC/USDT",
+    "timeframe": "30m",
+    "subagent": "trading-btc-divergence",
+    "status": "planned",
+    "deployed": null,
+    "expires": null,
+    "trades": [],
+    "stats": {
+      "wins": 0,
+      "losses": 0,
+      "winRate": 0
+    },
+    "allocation": 100,
+    "targets": {
+      "profit": "1.5-2%",
+      "profitTicks": "300-500 points",
+      "stopLoss": "0.75%",
+      "stopTicks": "150-200 points",
+      "riskReward": "2:1 to 2.7:1",
+      "entrySignal": "rsi_divergence",
+      "positionSize": "$100"
+    },
+    "parameters": {
+      "rsiPeriod": 14,
+      "divergenceLookback": 15,
+      "rsiOverbought": 65,
+      "rsiOversold": 35,
+      "trendFilter": true,
+      "minDivergenceStrength": "1.5%"
+    },
+    "fastTrack": true,
+    "phase": "paper",
+    "expectedWinRate": "45-55%",
+    "riskLevel": "medium-high",
+    "notes": "Deploy Phase 3 - most complex, lessons learned"
+  }
+]

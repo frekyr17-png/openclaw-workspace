@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payslip - {{month_name}} {{year}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background: #fff;
+            padding: 40px;
+        }
+        .payslip-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #2c5282;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c5282 0%, #3182ce 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        .header h2 {
+            font-size: 14px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        .payslip-title {
+            background: #f7fafc;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .payslip-title h3 {
+            color: #2d3748;
+            font-size: 18px;
+        }
+        .month-year {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        .employee-info {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .info-row {
+            display: flex;
+        }
+        .info-label {
+            width: 140px;
+            color: #718096;
+            font-size: 13px;
+        }
+        .info-value {
+            flex: 1;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .salary-section {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .earnings, .deductions {
+            flex: 1;
+            padding: 20px 24px;
+        }
+        .earnings {
+            border-right: 1px solid #e2e8f0;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid;
+        }
+        .earnings .section-title {
+            color: #38a169;
+            border-color: #38a169;
+        }
+        .deductions .section-title {
+            color: #e53e3e;
+            border-color: #e53e3e;
+        }
+        .salary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #e2e8f0;
+        }
+        .salary-row:last-child {
+            border-bottom: none;
+        }
+        .salary-amount {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .total-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .gross { color: #38a169; }
+        .deduction { color: #e53e3e; }
+        .net-pay-section {
+            background: linear-gradient(135deg, #276749 0%, #38a169 100%);
+            color: white;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .net-pay-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .net-pay-amount {
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .footer {
+            padding: 24px;
+            background: #f7fafc;
+        }
+        .notes {
+            color: #718096;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature-box {
+            width: 200px;
+        }
+        .signature-line {
+            border-top: 1px solid #4a5568;
+            margin-top: 40px;
+            padding-top: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .company-info {
+            text-align: center;
+            padding: 16px;
+            background: #2c5282;
+            color: white;
+            font-size: 11px;
+        }
+        @media print {
+            body { padding: 0; }
+            .payslip-container { border: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="payslip-container">
+        <div class="header">
+            <h1>ingversions digital</h1>
+            <h2>Salary Slip / Payslip</h2>
+        </div>
+        
+        <div class="payslip-title">
+            <h3>PAYSLIP</h3>
+            <div class="month-year">{{month_name}} {{year}}</div>
+        </div>
+        
+        <div class="employee-info">
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="info-label">Employee ID:</span>
+                    <span class="info-value">{{employee_id}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Employee Name:</span>
+                    <span class="info-value">{{full_name}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Designation:</span>
+                    <span class="info-value">{{designation}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Department:</span>
+                    <span class="info-value">{{department}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Date of Joining:</span>
+                    <span class="info-value">{{date_of_joining}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">PAN Number:</span>
+                    <span class="info-value">{{pan_number}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Bank Account:</span>
+                    <span class="info-value">{{bank_account}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">IFSC Code:</span>
+                    <span class="info-value">{{ifsc_code}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="salary-section">
+            <div class="earnings">
+                <div class="section-title">Earnings</div>
+                <div class="salary-row">
+                    <span>Basic Salary</span>
+                    <span class="salary-amount">₹{{basic_salary}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>House Rent Allowance (HRA)</span>
+                    <span class="salary-amount">₹{{hra}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>Conveyance Allowance</span>
+                    <span class="salary-amount">₹{{conveyance_allowance}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>Medical Allowance</span>
+                    <span class="salary-amount">₹{{medical_allowance}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>Special Allowance</span>
+                    <span class="salary-amount">₹{{special_allowance}}</span>
+                </div>
+                {{#if overtime}}
+                <div class="salary-row">
+                    <span>Overtime</span>
+                    <span class="salary-amount">₹{{overtime}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <div class="deductions">
+                <div class="section-title">Deductions</div>
+                <div class="salary-row">
+                    <span>Provident Fund (PF)</span>
+                    <span class="salary-amount">₹{{pf_employee}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>ESI (Employee)</span>
+                    <span class="salary-amount">₹{{esi_employee}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>TDS / Income Tax</span>
+                    <span class="salary-amount">₹{{tds}}</span>
+                </div>
+                <div class="salary-row">
+                    <span>Professional Tax</span>
+                    <span class="salary-amount">₹{{professional_tax}}</span>
+                </div>
+                {{#if other_deductions}}
+                <div class="salary-row">
+                    <span>Other Deductions</span>
+                    <span class="salary-amount">₹{{other_deductions}}</span>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        
+        <div class="total-row">
+            <span class="total-label gross">Total Earnings</span>
+            <span class="total-amount gross">₹{{gross_earnings}}</span>
+        </div>
+        <div class="total-row">
+            <span class="total-label deduction">Total Deductions</span>
+            <span class="total-amount deduction">₹{{total_deductions}}</span>
+        </div>
+        
+        <div class="net-pay-section">
+            <span class="net-pay-label">NET PAYABLE</span>
+            <span class="net-pay-amount">₹{{net_salary}}</span>
+        </div>
+        
+        <div class="footer">
+            <div class="signature">
+                <div class="signature-box">
+                    <div class="signature-line">Employee Signature</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line">Authorized Signatory</div>
+                </div>
+            </div>
+            <div class="notes" style="margin-top: 20px;">
+                <p><strong>Note:</strong> This is a computer generated payslip and does not require physical signature.</p>
+                <p>Payment Mode: Bank Transfer | Payment Date: {{payment_date}}</p>
+                <p>Employer PF Contribution: ₹{{pf_employer}} | Employer ESI Contribution: ₹{{esi_employer}}</p>
+            </div>
+        </div>
+        
+        <div class="company-info">
+            ingversions digital | HR Department | This document is confidential and intended solely for the employee named above.
+        </div>
+    </div>
+</body>
+</html>

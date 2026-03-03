@@ -35,6 +35,13 @@ _Last updated: 2025-02-22_
 - 50+ alternatives mapped across 10 categories
 - Key insight: market splitting into DIY agents, no-code business, enterprise, vertical specialists
 
+### LinkedIn Lead Gen (ingversions digital) - Started 2026-03-03
+- **Lead:** Sonic 🎯 (Business & Revenue)
+- **Target:** Non-tech founders in Europe (UK, DE, FR, NL) + USA
+- **Industries:** Manufacturing, Healthcare, Real Estate, D2C, Agriculture
+- **Timeline:** Week 1 = profiles live + first 50 leads prospected
+- **Goal:** Build pipeline of clients for ERP/CRM/Web Dev/AI automation services
+
 ## Revenue Roadmap
 - Phase 1: Paper trading → prove strategies work
 - Phase 2: Go live with winning strategies (small capital)
@@ -48,7 +55,16 @@ _Last updated: 2025-02-22_
 - 2025-02-22: Set up proactive heartbeat system
 - 2025-02-21: Started trading lab with 7 strategies on Binance testnet
 
+## Active Research
+
+### Free Fast Models Study (started 2026-03-03)
+- **Lead:** Bruce 🔒 (Security & Research)
+- **Goal:** Find free models <2s response for team daily use
+- **Baseline:** kimi-k2.5:cloud (0.87s), gpt-oss:120b-cloud (0.82s)
+- **Status:** Bruce running initial research & speed testing
+
 ## Lessons Learned
 - Always update lists fully when asked (Rahul got frustrated when ollama list wasn't refreshed)
 - Don't ask unnecessary questions — just do it
 - Token efficiency matters — batch work, use local models
+- VPS is CPU-only → cloud models work, local 7B+ models timeout

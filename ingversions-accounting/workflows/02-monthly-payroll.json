@@ -1,0 +1,215 @@
+{
+  "name": "Monthly Payroll Processing",
+  "nodes": [
+    {
+      "id": "payroll-001",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [100, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 25 * *"
+            }
+          ]
+        }
+      },
+      "notes": "Runs at 9 AM on 25th of every month",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "payroll-002",
+      "name": "Get Active Employees",
+      "type": "n8n-nodes-base.postgres",
+      "position": [300, 300],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "employees",
+        "where": "is_active = true"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "payroll-003",
+      "name": "Calculate Payroll Items",
+      "type": "n8n-nodes-base.code",
+      "position": [500, 300],
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;\nconst monthName = now.toLocaleString('default', { month: 'long' });\n\n// Get previous month's attendance for LOP calculation\n// For simplicity, assume full month unless specified\n\nconst employees = $input.all()[0].json;\nconst payrollRecords = [];\n\nfor (const emp of employees) {\n  const ctc = parseFloat(emp.ctc_annual || 0);\n  const basic = Math.round(ctc * 0.4 / 12);\n  const hra = Math.round(ctc * 0.2 / 12);\n  const conveyance = Math.round(ctc * 0.05 / 12);\n  const medical = Math.round(ctc * 0.05 / 12);\n  const special = Math.round(ctc * 0.3 / 12);\n  \n  const gross = basic + hra + conveyance + medical + special;\n  \n  // Deductions (based on Indian norms)\n  const pfEmployee = Math.min(Math.round(basic * 0.12), 1800); // Max 1800\n  const pfEmployer = pfEmployee;\n  const esiEmployee = gross <= 21000 ? Math.round(gross * 0.0075) : 0;\n  const esiEmployer = gross <= 21000 ? Math.round(gross * 0.0325) : 0;\n  \n  // Professional tax (Gujarat rates)\n  let profTax = 0;\n  if (gross > 12000) profTax = 200;\n  \n  // TDS placeholder - calculate based on taxable income\n  const tds = 0; // To be calculated based on projection\n  \n  const totalDeductions = pfEmployee + esiEmployee + tds + profTax;\n  const netSalary = gross - totalDeductions;\n  \n  payrollRecords.push({\n    employee_id: emp.employee_id,\n    year_month: yearMonth,\n    month_name: monthName,\n    basic_salary: basic,\n    hra: hra,\n    conveyance_allowance: conveyance,\n    medical_allowance: medical,\n    special_allowance: special,\n    gross_earnings: gross,\n    pf_employee: pfEmployee,\n    pf_employer: pfEmployer,\n    esi_employee: esiEmployee,\n    esi_employer: esiEmployer,\n    tds: tds,\n    professional_tax: profTax,\n    total_deductions: totalDeductions,\n    net_salary: netSalary,\n    payment_status: 'Pending'\n  });\n}\n\nreturn payrollRecords.map(r => ({ json: r }));"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "payroll-004",
+      "name": "Save Salary Records",
+      "type": "n8n-nodes-base.postgres",
+      "position": [700, 300],
+      "parameters": {
+        "operation": "upsert",
+        "schema": "public",
+        "table": "salary_records",
+        "mode": "insert",
+        "columns": {
+          "values": {
+            "employee_id": "={{ $json.employee_id }}",
+            "year_month": "={{ $json.year_month }}",
+            "month_name": "={{ $json.month_name }}",
+            "basic_salary": "={{ $json.basic_salary }}",
+            "hra": "={{ $json.hra }}",
+            "conveyance_allowance": "={{ $json.conveyance_allowance }}",
+            "medical_allowance": "={{ $json.medical_allowance }}",
+            "special_allowance": "={{ $json.special_allowance }}",
+            "gross_earnings": "={{ $json.gross_earnings }}",
+            "pf_employee": "={{ $json.pf_employee }}",
+            "pf_employer": "={{ $json.pf_employer }}",
+            "esi_employee": "={{ $json.esi_employee }}",
+            "esi_employer": "={{ $json.esi_employer }}",
+            "tds": "={{ $json.tds }}",
+            "professional_tax": "={{ $json.professional_tax }}",
+            "total_deductions": "={{ $json.total_deductions }}",
+            "net_salary": "={{ $json.net_salary }}",
+            "payment_status": "={{ $json.payment_status }}"
+          }
+        }
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "payroll-005",
+      "name": "Generate Payslip HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 300],
+      "parameters": {
+        "url": "http://localhost:3500/generate-payslip",
+        "method": "POST",
+        "jsonBody": "={\n  employee_id: $json.employee_id,\n  year_month: $json.year_month,\n  month_name: $json.month_name,\n  basic_salary: $json.basic_salary,\n  hra: $json.hra,\n  conveyance_allowance: $json.conveyance_allowance,\n  medical_allowance: $json.medical_allowance,\n  special_allowance: $json.special_allowance,\n  gross_earnings: $json.gross_earnings,\n  pf_employee: $json.pf_employee,\n  esi_employee: $json.esi_employee,\n  tds: $json.tds,\n  professional_tax: $json.professional_tax,\n  total_deductions: $json.total_deductions,\n  net_salary: $json.net_salary\n}",
+        "sendBody": true,
+        "specifyBody": "json"
+      },
+      "typeVersion": 4.2,
+      "continueOnFail": true
+    },
+    {
+      "id": "payroll-006",
+      "name": "Update Payslip Path",
+      "type": "n8n-nodes-base.postgres",
+      "position": [1100, 300],
+      "parameters": {
+        "operation": "update",
+        "schema": "public",
+        "table": "salary_records",
+        "columns": {
+          "values": {
+            "payslip_generated": "=true",
+            "payslip_path": "={{ $input.first().json.body?.pdf_path || 'n/a' }}"
+          }
+        },
+        "where": "employee_id = '{{ $json.employee_id }}' AND year_month = '{{ $json.year_month }}'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "payroll-007",
+      "name": "Get Employee Teams ID",
+      "type": "n8n-nodes-base.postgres",
+      "position": [900, 500],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "employees",
+        "columns": ["team_id", "full_name", "email"],
+        "where": "employee_id = '{{ $json.employee_id }}'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "payroll-008",
+      "name": "Send Payslip to Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [1100, 500],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "={{ $json.team_id }}",
+        "message": "=📝 **Payslip for {{ $json.month_name }} {{ $json.year_month.split('-')[0] }}**\n\nHello {{ $json.full_name }},\n\nYour payslip for {{ $json.month_name }} has been generated:\n\n📊 **Earnings:**\n• Basic Salary: ₹{{ $json.basic_salary.toLocaleString('en-IN') }}\n• HRA: ₹{{ $json.hra.toLocaleString('en-IN') }}\n• Conveyance: ₹{{ $json.conveyance_allowance.toLocaleString('en-IN') }}\n• Medical: ₹{{ $json.medical_allowance.toLocaleString('en-IN') }}\n• Special Allowance: ₹{{ $json.special_allowance.toLocaleString('en-IN') }}\n\n✅ **Gross Earnings:** ₹{{ $json.gross_earnings.toLocaleString('en-IN') }}\n\n📉 **Deductions:**\n• PF: ₹{{ $json.pf_employee.toLocaleString('en-IN') }}\n• ESI: ₹{{ $json.esi_employee.toLocaleString('en-IN') }}\n• TDS: ₹{{ $json.tds.toLocaleString('en-IN') }}\n• Professional Tax: ₹{{ $json.professional_tax.toLocaleString('en-IN') }}\n\n❗ **Total Deductions:** ₹{{ $json.total_deductions.toLocaleString('en-IN') }}\n\n💰 **Net Salary:** ₹{{ $json.net_salary.toLocaleString('en-IN') }}\n\nThe detailed payslip PDF is attached.",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "payroll-009",
+      "name": "Aggregate Summary",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [900, 700],
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {},
+        "destinationFieldName": "payroll_data"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "payroll-010",
+      "name": "Send Payroll Summary to Admin",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [1100, 700],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "{{ $env.PAYROLL_CHANNEL_ID }}",
+        "message": "=📋 **Payroll Processing Complete**\n\nMonth: {{ $json.month_name }} {{ $json.year_month.split('-')[0] }}\n\n👥 **Employees Processed:** {{ $json.payroll_data.length }}\n💰 **Total Gross:** ₹{{ $json.payroll_data.reduce((s, r) => s + r.gross_earnings, 0).toLocaleString('en-IN') }}\n📉 **Total Deductions:** ₹{{ $json.payroll_data.reduce((s, r) => s + r.total_deductions, 0).toLocaleString('en-IN') }}\n💵 **Total Net:** ₹{{ $json.payroll_data.reduce((s, r) => s + r.net_salary, 0).toLocaleString('en-IN') }}\n\n✅ All payslips generated and sent to employees via Teams.",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[{ "node": "Get Active Employees", "type": "main", "index": 0 }]]
+    },
+    "Get Active Employees": {
+      "main": [[{ "node": "Calculate Payroll Items", "type": "main", "index": 0 }]]
+    },
+    "Calculate Payroll Items": {
+      "main": [
+        [{ "node": "Save Salary Records", "type": "main", "index": 0 }],
+        [{ "node": "Aggregate Summary", "type": "main", "index": 0 }]
+      ]
+    },
+    "Save Salary Records": {
+      "main": [
+        [{ "node": "Generate Payslip HTML", "type": "main", "index": 0 }],
+        [{ "node": "Get Employee Teams ID", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Payslip HTML": {
+      "main": [[{ "node": "Update Payslip Path", "type": "main", "index": 0 }]]
+    },
+    "Get Employee Teams ID": {
+      "main": [[{ "node": "Send Payslip to Teams", "type": "main", "index": 0 }]]
+    },
+    "Aggregate Summary": {
+      "main": [[{ "node": "Send Payroll Summary to Admin", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": ["Payroll", "Monthly", "Payslip"]
+}

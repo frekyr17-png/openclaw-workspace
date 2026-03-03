@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 16 - Certificate for Tax Deducted at Source</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000;
+            background: #fff;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            border: 2px solid #000;
+        }
+        .header {
+            text-align: center;
+            padding: 12px;
+            border-bottom: 2px solid #000;
+            background: #f5f5f5;
+        }
+        .header h1 {
+            font-size: 14pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .header h2 {
+            font-size: 11pt;
+            font-weight: normal;
+            margin-top: 4px;
+        }
+        .section {
+            border-bottom: 1px solid #000;
+            padding: 8px 12px;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .section-title {
+            font-size: 10pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #e0e0e0;
+            padding: 4px 12px;
+            margin: -8px -12px 8px -12px;
+            border-bottom: 1px solid #000;
+        }
+        .part {
+            margin-bottom: 16px;
+        }
+        .part-header {
+            font-size: 10pt;
+            font-weight: bold;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border: 1px solid #000;
+            margin-bottom: 8px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table td, .info-table th {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        .info-table th {
+            background: #f5f5f5;
+            font-weight: bold;
+            width: 35%;
+        }
+        .calculation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        .calculation-table td, .calculation-table th {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        .calculation-table th {
+            background: #f5f5f5;
+            font-weight: bold;
+            text-align: left;
+        }
+        .amount {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        .total-row {
+            background: #e8e8e8;
+            font-weight: bold;
+        }
+        .signature-section {
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature-box {
+            width: 45%;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 40px;
+            padding-top: 4px;
+            font-size: 9pt;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 12px;
+            border-top: 1px solid #000;
+            font-size: 9pt;
+            background: #f5f5f5;
+        }
+        @media print {
+            body { padding: 0; }
+            .form-container { border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>FORM 16</h1>
+            <h2>Certificate under Section 203 of the Income-tax Act, 1961</h2>
+            <h2>for Tax Deducted at Source from income chargeable under the head "Salaries"</h2>
+        </div>
+        
+        <!-- Part A -->
+        <div class="section">
+            <div class="section-title">Part A: Details of Tax Deducted and Deposited</div>
+            
+            <table class="info-table">
+                <tr>
+                    <th>TAN of Deductor</th>
+                    <td>{{tan}}</td>
+                </tr>
+                <tr>
+                    <th>PAN of Deductor</th>
+                    <td>{{employer_pan}}</td>
+                </tr>
+                <tr>
+                    <th>Name of the Deductor</th>
+                    <td><strong>ingversions digital</strong></td>
+                </tr>
+                <tr>
+                    <th>Address of the Deductor</th>
+                    <td>{{employer_address}}</td>
+                </tr>
+                <tr>
+                    <th>PAN of the Employee</th>
+                    <td>{{pan_number}}</td>
+                </tr>
+                <tr>
+                    <th>Name of the Employee</th>
+                    <td><strong>{{full_name}}</strong></td>
+                </tr>
+                <tr>
+                    <th>Employee ID</th>
+                    <td>{{employee_id}}</td>
+                </tr>
+                <tr>
+                    <th>Financial Year</th>
+                    <td>{{financial_year}}</td>
+                </tr>
+                <tr>
+                    <th>Assessment Year</th>
+                    <td>{{assessment_year}}</td>
+                </tr>
+            </table>
+            
+            
+            <div class="part" style="margin-top: 16px;">
+                <div class="part-header">Summary of Tax Deducted and Deposited (Quarter-wise)</div>
+                
+                <table class="calculation-table">
+                    <thead>
+                        <tr>
+                            <th>Quarter</th>
+                            <th>Period</th>
+                            <th>Amount Credited</th>
+                            <th>Tax Deducted (TDS)</th>
+                            <th>Amount Deposited</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Q1</td>
+                            <td>Apr - Jun</td>
+                            <td class="amount">₹{{q1_credited}}</td>
+                            <td class="amount">₹{{q1_tds}}</td>
+                            <td class="amount">₹{{q1_deposited}}</td>
+                        </tr>
+                        <tr>
+                            <td>Q2</td>
+                            <td>Jul - Sep</td>
+                            <td class="amount">₹{{q2_credited}}</td>
+                            <td class="amount">₹{{q2_tds}}</td>
+                            <td class="amount">₹{{q2_deposited}}</td>
+                        </tr>
+                        <tr>
+                            <td>Q3</td>
+                            <td>Oct - Dec</td>
+                            <td class="amount">₹{{q3_credited}}</td>
+                            <td class="amount">₹{{q3_tds}}</td>
+                            <td class="amount">₹{{q3_deposited}}</td>
+                        </tr>
+                        <tr>
+                            <td>Q4</td>
+                            <td>Jan - Mar</td>
+                            <td class="amount">₹{{q4_credited}}</td>
+                            <td class="amount">₹{{q4_tds}}</td>
+                            <td class="amount">₹{{q4_deposited}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>TOTAL</strong></td>
+                            <td class="amount"><strong>₹{{total_credited}}</strong></td>
+                            <td class="amount"><strong>₹{{total_tds}}</strong></td>
+                            <td class="amount"><strong>₹{{total_deposited}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Part B - Annexure -->
+        <div class="section">
+            <div class="section-title">Part B - Annexure</div>
+            
+            <div class="part">
+                <div class="part-header">Details of Salary Paid and any other Income and Tax Deducted</div>
+                
+                <table class="calculation-table">
+                    <thead>
+                        <tr>
+                            <th>SL No.</th>
+                            <th>Nature of Income</th>
+                            <th>Amount (Rs.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>Gross Salary (as per provisions contained in section 17(1))</td>
+                            <td class="amount">₹{{gross_salary}}</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Less: Allowance to the extent exempt u/s 10</td>
+                            <td class="amount">₹{{exempt_allowances}}</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td><strong>Balance</strong> (1 - 2)</td>
+                            <td class="amount"><strong>₹{{balance_income}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>Less: Deductions under section 16 (Standard Deduction)</td>
+                            <td class="amount">₹{{deductions_std}}</td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td><strong>Total Income from Salary</strong> (3 - 4)</td>
+                            <td class="amount"><strong>₹{{total_income_salary}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>Add: Income from Other Sources (if any)</td>
+                            <td class="amount">₹{{other_income}}</td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td><strong>Gross Total Income</strong> (5 + 6)</td>
+                            <td class="amount"><strong>₹{{gross_total_income}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td>Less: Deduction under Chapter VI-A</td>
+                            <td class="amount">₹{{chapter_vi_a}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>9.</td>
+                            <td><strong>TAXABLE INCOME</strong> (7 - 8)</td>
+                            <td class="amount"><strong>₹{{taxable_income}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            <div class="part">
+                <div class="part-header">Tax Computation</div>
+                
+                <table class="calculation-table">
+                    <tbody>
+                        <tr>
+                            <td>a) Tax Payable on Total Income</td>
+                            <td class="amount">₹{{tax_on_income}}</td>
+                        </tr>
+                        <tr>
+                            <td>b) Less: Rebate under section 87A</td>
+                            <td class="amount">₹{{rebate_87a}}</td>
+                        </tr>
+                        <tr>
+                            <td>c) Tax After Rebate</td>
+                            <td class="amount">₹{{tax_after_rebate}}</td>
+                        </tr>
+                        <tr>
+                            <td>d) Add: Health & Education Cess @ 4%</td>
+                            <td class="amount">₹{{cess_4}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>e) Total Tax Payable</strong></td>
+                            <td class="amount"><strong>₹{{total_tax}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>f) Total Tax Deducted (TDS)</td>
+                            <td class="amount">₹{{total_tds_deducted}}</td>
+                        </tr>
+                        <tr>
+                            <td>g) Balance Tax Payable / Refund Due</td>
+                            <td class="amount">₹{{tax_payable_refund}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Certification -->
+        <div class="section">
+            <div class="section-title">Verification / Certification</div>
+            
+            <p style="margin-bottom: 16px;">
+                I, <strong>[Authorized Signatory]</strong>, son/daughter of <strong>[Parent Name]</strong> working in the capacity of 
+                <strong>Director</strong> do hereby certify that the information given above is true, complete and correct and is based on the books of account, 
+                documents and other relevant records or information available with us.
+            </p>
+            
+            <div class="signature-section">
+                <div class="signature-box">
+                    <p>Place: <strong>Surat</strong></p>
+                    <p>Date: <strong>{{certification_date}}</strong></p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line">
+                        Signature of the person responsible for deduction of tax
+                    </div>
+                    <p style="text-align: center; margin-top: 8px;"><strong>for ingversions digital</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Generated by automated payroll system</strong> | This is a digitally generated Form 16 certificate.</p>
+            <p>Financial Year: {{financial_year}} | Assessment Year: {{assessment_year}}</p>
+        </div>
+    </div>
+</body>
+</html>

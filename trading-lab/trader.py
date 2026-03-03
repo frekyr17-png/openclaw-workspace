@@ -451,11 +451,20 @@ def main():
             print(f"  {strat['id']} ({strat['type']}/{strat['market']}/{strat['timeframe']}): {signal} @ {price}")
 
             if signal in ('buy', 'sell'):
-                # Check existing trades - evaluate profit target (5-10%)
+                # Check existing trades - evaluate profit target
                 for t in strat['trades']:
                     if t['result'] == 'pending':
                         entry_price = t['price']
                         signal_meta = t.get('signal_meta', {})
+                        
+                        # Get custom targets from strategy config
+                        targets = strat.get('targets', {})
+                        profit_target = 5.0  # default
+                        loss_limit = -5.0   # default
+                        
+                        if strat['id'] == 'GOLD-001':
+                            profit_target = 2.5  # 2-3% target
+                            loss_limit = -1.0  # 1% stop loss
                         
                         # For MTF strategy, use preset stop/target from entry signal
                         if strat['type'] == 'mtf' and 'stop_loss' in signal_meta and 'take_profit' in signal_meta:
@@ -503,16 +512,15 @@ def main():
                             else:
                                 pnl_pct = (entry_price - price) / entry_price * 100
 
-                            # Close if we hit profit target (5% minimum, hold for more)
-                            # Target: 10% daily, so we aim for 5-10% per trade
-                            if pnl_pct >= 5.0:  
+                            # Close if we hit profit target
+                            if pnl_pct >= profit_target:  
                                 t['exit'] = price
                                 t['pnl'] = round(pnl_pct, 2)
                                 t['result'] = 'win'
                                 t['closed'] = datetime.now(timezone.utc).isoformat()
                                 strat['stats']['wins'] += 1
                                 print(f"    → CLOSED WIN: +{pnl_pct:.2f}% (profit target hit)")
-                            elif pnl_pct < -5.0:  # Cut losses at 5% (no unlimited losses)
+                            elif pnl_pct < loss_limit:  # Cut losses
                                 t['exit'] = price
                                 t['pnl'] = round(pnl_pct, 2)
                                 t['result'] = 'loss'

@@ -1,446 +1,156 @@
 {
-  "cycle": 1,
-  "phase": "trading",
+  "cycle": 3,
+  "phase": "short_timeframe_boost",
   "strategies": [
     {
       "id": "ALPHA-001",
-      "name": "Alpha Trend Rider",
+      "name": "Alpha Trend Scalper",
       "type": "trend",
       "market": "BTC/USDT",
-      "timeframe": "15m",
+      "timeframe": "5m",
       "subagent": "trading-alpha-trend",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-23",
-      "trades": [
-        {
-          "timestamp": "2026-02-21T20:30:59.240898+00:00",
-          "action": "BUY",
-          "market": "BTC/USDT",
-          "price": 68564.53,
-          "signal_meta": {
-            "sma_fast": 68190.87571428572,
-            "sma_slow": 67453.25190476191
-          },
-          "result": "loss",
-          "exit": 67990.5,
-          "pnl": -0.84,
-          "closed": "2026-02-22T03:46:48.408661+00:00"
-        },
-        {
-          "timestamp": "2026-02-22T03:46:48.408636+00:00",
-          "action": "BUY",
-          "market": "BTC/USDT",
-          "price": 67990.5,
-          "signal_meta": {
-            "sma_fast": 68106.49571428572,
-            "sma_slow": 67441.14142857143
-          },
-          "result": "loss",
-          "exit": 67962.64,
-          "pnl": -0.04,
-          "closed": "2026-02-22T08:26:00.915715+00:00"
-        },
-        {
-          "timestamp": "2026-02-22T08:26:00.915689+00:00",
-          "action": "BUY",
-          "market": "BTC/USDT",
-          "price": 67962.64,
-          "signal_meta": {
-            "sma_fast": 68179.47428571428,
-            "sma_slow": 67600.4480952381
-          },
-          "result": "pending"
-        }
-      ],
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
       "stats": {
         "wins": 0,
-        "losses": 2,
-        "winRate": 0.0
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.5-1%",
+        "stopLoss": "0.25%",
+        "positionSize": "$50"
       }
     },
     {
       "id": "BETA-001",
-      "name": "Beta Mean Reverter",
+      "name": "Beta Mean Reversion Quick",
       "type": "meanrev",
       "market": "ETH/USDT",
-      "timeframe": "4h",
+      "timeframe": "15m",
       "subagent": "trading-beta-meanrev",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-23",
-      "trades": [
-        {
-          "timestamp": "2026-02-21T20:30:59.507793+00:00",
-          "action": "SELL",
-          "market": "ETH/USDT",
-          "price": 1988.61,
-          "signal_meta": {
-            "z_score": 1.5713939811339912,
-            "sma20": 1961.8615000000002
-          },
-          "result": "win",
-          "exit": 1883.44,
-          "pnl": 5.29,
-          "closed": "2026-02-23T07:38:36.797223+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T07:40:19.907627+00:00",
-          "action": "BUY",
-          "market": "ETH/USDT",
-          "price": 1887.49,
-          "signal_meta": {
-            "z_score": -2.3122003992328097,
-            "sma20": 1957.1585,
-            "target_revert": 3.0
-          },
-          "result": "pending"
-        }
-      ],
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
       "stats": {
-        "wins": 1,
+        "wins": 0,
         "losses": 0,
-        "winRate": 100.0
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.8-1.2%",
+        "stopLoss": "0.4%",
+        "positionSize": "$50"
       }
     },
     {
       "id": "GAMMA-001",
-      "name": "Gamma Breakout Hunter",
+      "name": "Gamma Breakout Fast",
       "type": "breakout",
       "market": "BTC/USDT",
       "timeframe": "30m",
       "subagent": "trading-gamma-breakout",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-23",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
       "trades": [],
       "stats": {
         "wins": 0,
         "losses": 0,
         "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "1-1.5%",
+        "stopLoss": "0.5%",
+        "positionSize": "$50"
       }
     },
     {
       "id": "DELTA-001",
-      "name": "Delta Momentum Surfer",
+      "name": "Delta Momentum Burst",
       "type": "momentum",
       "market": "ETH/USDT",
-      "timeframe": "1d",
+      "timeframe": "5m",
       "subagent": "trading-delta-momentum",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-23",
-      "trades": [
-        {
-          "timestamp": "2026-02-24T13:26:09.826828+00:00",
-          "action": "SELL",
-          "market": "ETH/USDT",
-          "price": 1822.32,
-          "signal_meta": {
-            "roc5": -7.443318028523839,
-            "roc10": -7.319516846789578,
-            "momentum_strength": 14.762834875313416
-          },
-          "result": "pending"
-        }
-      ],
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
       "stats": {
         "wins": 0,
         "losses": 0,
         "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.5-1%",
+        "stopLoss": "0.25%",
+        "positionSize": "$50"
       }
     },
     {
       "id": "EPSILON-001",
-      "name": "Epsilon Swing Trader",
+      "name": "Epsilon Micro Swing",
       "type": "swing",
       "market": "BTC/USDT",
-      "timeframe": "4h",
+      "timeframe": "15m",
       "subagent": "trading-epsilon-swing",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-23",
-      "trades": [
-        {
-          "timestamp": "2026-02-21T20:31:00.565488+00:00",
-          "action": "BUY",
-          "market": "BTC/USDT",
-          "price": 68564.53,
-          "signal_meta": {
-            "sma10": 67985.559,
-            "sma30": 67567.50499999999
-          },
-          "result": "loss",
-          "exit": 62969.1,
-          "pnl": -8.16,
-          "closed": "2026-02-24T13:26:10.099512+00:00"
-        },
-        {
-          "timestamp": "2026-02-24T13:26:41.529484+00:00",
-          "action": "SELL",
-          "market": "BTC/USDT",
-          "price": 62938.3,
-          "signal_meta": {
-            "sma10": 64474.86,
-            "sma30": 66675.60933333334,
-            "trend_strength": 2.3831924567187857
-          },
-          "result": "pending"
-        }
-      ],
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
       "stats": {
         "wins": 0,
-        "losses": 1,
-        "winRate": 0.0
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.8-1.2%",
+        "stopLoss": "0.4%",
+        "positionSize": "$50"
       }
     },
     {
       "id": "ZETA-001",
-      "name": "Zeta SOL Scalper",
+      "name": "Zeta SOL Hyper Scalper",
       "type": "momentum",
       "market": "SOL/USDT",
-      "timeframe": "1h",
+      "timeframe": "5m",
       "subagent": "trading-zeta-momentum",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-07",
-      "trades": [
-        {
-          "timestamp": "2026-02-23T02:00:07.103679+00:00",
-          "action": "SELL",
-          "market": "SOL/USDT",
-          "price": 77.97,
-          "signal_meta": {
-            "roc": -5.927710843373496
-          },
-          "result": "win",
-          "exit": 77.88,
-          "pnl": 0.12,
-          "closed": "2026-02-23T03:00:05.931088+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T03:00:05.931064+00:00",
-          "action": "SELL",
-          "market": "SOL/USDT",
-          "price": 77.88,
-          "signal_meta": {
-            "roc": -6.416726748377798
-          },
-          "result": "win",
-          "exit": 77.39,
-          "pnl": 0.63,
-          "closed": "2026-02-23T05:00:06.227183+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T05:00:06.227159+00:00",
-          "action": "SELL",
-          "market": "SOL/USDT",
-          "price": 77.39,
-          "signal_meta": {
-            "roc": -6.759036144578312
-          },
-          "result": "loss",
-          "exit": 77.87,
-          "pnl": -0.62,
-          "closed": "2026-02-23T06:00:05.767312+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T06:00:05.767284+00:00",
-          "action": "SELL",
-          "market": "SOL/USDT",
-          "price": 77.87,
-          "signal_meta": {
-            "roc": -6.753682193749253
-          },
-          "result": "loss",
-          "exit": 79.13,
-          "pnl": -1.62,
-          "closed": "2026-02-23T07:00:05.864837+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T07:00:05.864809+00:00",
-          "action": "SELL",
-          "market": "SOL/USDT",
-          "price": 79.13,
-          "signal_meta": {
-            "roc": -5.335566455317631
-          },
-          "result": "pending"
-        }
-      ],
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
       "stats": {
-        "wins": 2,
-        "losses": 2,
-        "winRate": 50.0
+        "wins": 0,
+        "losses": 0,
+        "winRate": 0
       },
-      "fastTrack": true
+      "fastTrack": true,
+      "scalping": true,
+      "targets": {
+        "profit": "0.5-1%",
+        "stopLoss": "0.25%",
+        "positionSize": "$50"
+      }
     },
     {
       "id": "ETA-001",
-      "name": "Eta XRP Rider",
+      "name": "Eta XRP Trend Blitz",
       "type": "trend",
       "market": "XRP/USDT",
-      "timeframe": "1h",
+      "timeframe": "15m",
       "subagent": "trading-eta-trend",
       "status": "active",
-      "deployed": "2025-02-21",
-      "expires": "2025-03-07",
-      "trades": [
-        {
-          "timestamp": "2026-02-21T20:34:32.787847+00:00",
-          "action": "BUY",
-          "market": "XRP/USDT",
-          "price": 1.4425,
-          "signal_meta": {
-            "sma_fast": 1.4462428571428572,
-            "sma_slow": 1.4379095238095239
-          },
-          "result": "loss",
-          "exit": 1.4226,
-          "pnl": -1.38,
-          "closed": "2026-02-22T03:46:50.044578+00:00"
-        },
-        {
-          "timestamp": "2026-02-22T03:46:50.044550+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.4226,
-          "signal_meta": {
-            "sma_fast": 1.4305,
-            "sma_slow": 1.438547619047619
-          },
-          "result": "win",
-          "exit": 1.42,
-          "pnl": 0.18,
-          "closed": "2026-02-22T08:26:02.554999+00:00"
-        },
-        {
-          "timestamp": "2026-02-22T08:26:02.554968+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.42,
-          "signal_meta": {
-            "sma_fast": 1.4223428571428571,
-            "sma_slow": 1.4346857142857143
-          },
-          "result": "win",
-          "exit": 1.3925,
-          "pnl": 1.94,
-          "closed": "2026-02-23T00:00:33.564324+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T00:00:33.564300+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3925,
-          "signal_meta": {
-            "sma_fast": 1.3908,
-            "sma_slow": 1.4042142857142859
-          },
-          "result": "win",
-          "exit": 1.3649,
-          "pnl": 1.98,
-          "closed": "2026-02-23T01:00:08.082615+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T01:00:08.082588+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3649,
-          "signal_meta": {
-            "sma_fast": 1.383214285714286,
-            "sma_slow": 1.4001476190476192
-          },
-          "result": "win",
-          "exit": 1.3375,
-          "pnl": 2.01,
-          "closed": "2026-02-23T02:00:10.282069+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T02:00:10.282041+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3375,
-          "signal_meta": {
-            "sma_fast": 1.3723428571428573,
-            "sma_slow": 1.3948952380952382
-          },
-          "result": "loss",
-          "exit": 1.3424,
-          "pnl": -0.37,
-          "closed": "2026-02-23T03:00:08.286000+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T03:00:08.285976+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3424,
-          "signal_meta": {
-            "sma_fast": 1.3672285714285715,
-            "sma_slow": 1.3912666666666667
-          },
-          "result": "win",
-          "exit": 1.3386,
-          "pnl": 0.28,
-          "closed": "2026-02-23T05:00:08.835271+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T05:00:08.835242+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3386,
-          "signal_meta": {
-            "sma_fast": 1.3509142857142857,
-            "sma_slow": 1.3834666666666666
-          },
-          "result": "loss",
-          "exit": 1.3429,
-          "pnl": -0.32,
-          "closed": "2026-02-23T06:00:08.187558+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T06:00:08.187528+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3429,
-          "signal_meta": {
-            "sma_fast": 1.3443714285714286,
-            "sma_slow": 1.379947619047619
-          },
-          "result": "loss",
-          "exit": 1.3681,
-          "pnl": -1.88,
-          "closed": "2026-02-23T07:00:08.791311+00:00"
-        },
-        {
-          "timestamp": "2026-02-23T07:00:08.791282+00:00",
-          "action": "SELL",
-          "market": "XRP/USDT",
-          "price": 1.3681,
-          "signal_meta": {
-            "sma_fast": 1.3484285714285715,
-            "sma_slow": 1.378609523809524
-          },
-          "result": "pending"
-        }
-      ],
-      "stats": {
-        "wins": 5,
-        "losses": 4,
-        "winRate": 55.6
-      },
-      "fastTrack": true
-    },
-    {
-      "id": "THETA-001",
-      "name": "Theta Gold Trend",
-      "type": "trend",
-      "market": "PAXG/USDT",
-      "timeframe": "5m",
-      "subagent": "trading-theta-trend",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-23",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
       "trades": [],
       "stats": {
         "wins": 0,
@@ -448,152 +158,16 @@
         "winRate": 0
       },
       "fastTrack": true,
-      "note": "Gold scalping - 5m timeframe"
-    },
-    {
-      "id": "IOTA-001",
-      "name": "Iota Gold Scalp",
-      "type": "momentum",
-      "market": "PAXG/USDT",
-      "timeframe": "5m",
-      "subagent": "trading-iota-momentum",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-23",
-      "trades": [],
-      "stats": {
-        "wins": 0,
-        "losses": 0,
-        "winRate": 0
-      },
-      "fastTrack": true,
-      "note": "Gold momentum - 5m timeframe"
-    },
-    {
-      "id": "KAPPA-001",
-      "name": "Kappa BTC Scalp",
-      "type": "momentum",
-      "market": "BTC/USDT",
-      "timeframe": "5m",
-      "subagent": "trading-kappa-momentum",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-07",
-      "trades": [
-        {
-          "timestamp": "2026-02-25T01:20:06.131014+00:00",
-          "action": "BUY",
-          "market": "BTC/USDT",
-          "price": 65885.56,
-          "signal_meta": {
-            "roc5": 2.4644126398191495,
-            "roc10": 2.656375719297454,
-            "momentum_strength": 5.120788359116604
-          },
-          "result": "pending"
-        }
-      ],
-      "stats": {
-        "wins": 0,
-        "losses": 0,
-        "winRate": 0
-      },
-      "fastTrack": true,
-      "note": "BTC scalping - 5m momentum"
-    },
-    {
-      "id": "LAMBDA-001",
-      "name": "Lambda ETH Scalp",
-      "type": "trend",
-      "market": "ETH/USDT",
-      "timeframe": "5m",
-      "subagent": "trading-lambda-trend",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-07",
-      "trades": [
-        {
-          "timestamp": "2026-02-23T07:20:07.325291+00:00",
-          "action": "BUY",
-          "market": "ETH/USDT",
-          "price": 1880.45,
-          "signal_meta": {
-            "sma_fast": 1881.682,
-            "sma_slow": 1878.8433333333335
-          },
-          "result": "pending"
-        }
-      ],
-      "stats": {
-        "wins": 0,
-        "losses": 0,
-        "winRate": 0
-      },
-      "fastTrack": true,
-      "note": "ETH scalping - 5m trend"
-    },
-    {
-      "id": "MU-001",
-      "name": "Mu SOL Trend",
-      "type": "trend",
-      "market": "SOL/USDT",
-      "timeframe": "5m",
-      "subagent": "trading-mu-trend",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-07",
-      "trades": [
-        {
-          "timestamp": "2026-02-23T07:15:06.477812+00:00",
-          "action": "BUY",
-          "market": "SOL/USDT",
-          "price": 79.2,
-          "signal_meta": {
-            "sma_fast": 79.186,
-            "sma_slow": 78.84666666666666
-          },
-          "result": "win",
-          "exit": 85.95,
-          "pnl": 8.52,
-          "closed": "2026-02-25T15:05:05.256503+00:00"
-        }
-      ],
-      "stats": {
-        "wins": 1,
-        "losses": 0,
-        "winRate": 100.0
-      },
-      "fastTrack": true,
-      "note": "SOL scalping - 5m trend"
-    },
-    {
-      "id": "NU-001",
-      "name": "Nu Gold Multi-Timeframe",
-      "type": "mtf",
-      "market": "PAXG/USDT",
-      "timeframe": "30m",
-      "entry_timeframe": "5m",
-      "subagent": "trading-nu-mtf",
-      "status": "active",
-      "deployed": "2026-02-23",
-      "expires": "2026-03-23",
-      "trades": [],
-      "stats": {
-        "wins": 0,
-        "losses": 0,
-        "winRate": 0
-      },
-      "fastTrack": true,
-      "note": "MTF pattern bot - 1H trend, 30M confirm, 5M entry on PAXG"
+      "scalping": true,
+      "targets": {
+        "profit": "0.8-1.2%",
+        "stopLoss": "0.4%",
+        "positionSize": "$50"
+      }
     }
   ],
   "history": [],
-  "lastUpdate": "2026-02-25T15:35:05.922569+00:00",
-  "nextEvaluation": "2025-03-23",
-  "dailyTarget": "10% per bot per day",
-  "positionSize": "$100 per bot",
-  "dailyProfitNeeded": "$10 per bot"
-}lyTarget": "10% per bot per day",
-  "positionSize": "$100 per bot",
-  "dailyProfitNeeded": "$10 per bot"
+  "lastUpdate": "2026-03-03T12:45:05.898476+00:00",
+  "nextEvaluation": "2026-03-08",
+  "note": "SHORT_TIMEFRAME_MODE: All strategies converted to 5m/15m/30m for rapid feedback loop (3-5 day evaluation cycles)"
 }

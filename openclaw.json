@@ -1,0 +1,661 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.26",
+    "lastTouchedAt": "2026-03-03T08:16:28.310Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-02T20:07:31.632Z",
+    "lastRunVersion": "2026.2.26",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "api_key"
+      },
+      "copilot-proxy:local": {
+        "provider": "copilot-proxy",
+        "mode": "token"
+      },
+      "openrouter:default": {
+        "provider": "openrouter",
+        "mode": "api_key"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com/v1",
+        "apiKey": "n/a",
+        "models": [
+          {
+            "id": "claude-opus-4-5",
+            "name": "Claude Opus 4.5",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 15,
+              "output": 75,
+              "cacheRead": 1.5,
+              "cacheWrite": 7.5
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-sonnet-4-5",
+            "name": "Claude Sonnet 4.5",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 3,
+              "output": 15,
+              "cacheRead": 0.3,
+              "cacheWrite": 1.5
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-haiku-4-5",
+            "name": "Claude Haiku 4.5",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0.25,
+              "output": 1.25,
+              "cacheRead": 0.02,
+              "cacheWrite": 0.1
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-3-opus",
+            "name": "Claude 3 Opus",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 15,
+              "output": 75,
+              "cacheRead": 1.5,
+              "cacheWrite": 7.5
+            },
+            "contextWindow": 200000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "claude-3-sonnet",
+            "name": "Claude 3 Sonnet",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 3,
+              "output": 15,
+              "cacheRead": 0.3,
+              "cacheWrite": 1.5
+            },
+            "contextWindow": 200000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "claude-3-haiku",
+            "name": "Claude 3 Haiku",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0.25,
+              "output": 1.25,
+              "cacheRead": 0.02,
+              "cacheWrite": 0.1
+            },
+            "contextWindow": 200000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "claude-3-5-sonnet",
+            "name": "Claude 3.5 Sonnet",
+            "api": "anthropic-messages",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 3,
+              "output": 15,
+              "cacheRead": 0.3,
+              "cacheWrite": 1.5
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-3-5-haiku",
+            "name": "Claude 3.5 Haiku",
+            "api": "anthropic-messages",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0.25,
+              "output": 1.25,
+              "cacheRead": 0.02,
+              "cacheWrite": 0.1
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "copilot-proxy": {
+        "baseUrl": "http://localhost:3000/v1",
+        "apiKey": "n/a",
+        "api": "openai-completions",
+        "authHeader": false,
+        "models": [
+          {
+            "id": "gpt-5.2",
+            "name": "gpt-5.2",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gpt-5.2-codex",
+            "name": "gpt-5.2-codex",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gpt-5.1",
+            "name": "gpt-5.1",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gpt-5.1-codex",
+            "name": "gpt-5.1-codex",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gpt-5.1-codex-max",
+            "name": "gpt-5.1-codex-max",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gpt-5-mini",
+            "name": "gpt-5-mini",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-opus-4.6",
+            "name": "claude-opus-4.6",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-opus-4.5",
+            "name": "claude-opus-4.5",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-sonnet-4.5",
+            "name": "claude-sonnet-4.5",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-haiku-4.5",
+            "name": "claude-haiku-4.5",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-3-pro",
+            "name": "gemini-3-pro",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-3-flash",
+            "name": "gemini-3-flash",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "grok-code-fast-1",
+            "name": "grok-code-fast-1",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434/v1",
+        "apiKey": "ollama-local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "kimi-k2.5:cloud",
+            "name": "kimi-k2.5:cloud",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 131072,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama/kimi-k2.5:cloud"
+      },
+      "models": {
+        "anthropic/claude-3-5-haiku": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-3-5-sonnet": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-3-haiku": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-3-opus": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-3-sonnet": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-haiku-4-5": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-opus-4-5": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "anthropic/claude-sonnet-4-5": {
+          "params": {
+            "cacheRetention": "short"
+          }
+        },
+        "copilot-proxy/claude-haiku-4.5": {},
+        "copilot-proxy/claude-opus-4.5": {},
+        "copilot-proxy/claude-opus-4.6": {},
+        "copilot-proxy/claude-sonnet-4.5": {},
+        "copilot-proxy/gemini-3-flash": {},
+        "copilot-proxy/gemini-3-pro": {},
+        "copilot-proxy/gpt-5-mini": {},
+        "copilot-proxy/gpt-5.1": {},
+        "copilot-proxy/gpt-5.1-codex": {},
+        "copilot-proxy/gpt-5.1-codex-max": {},
+        "copilot-proxy/gpt-5.2": {},
+        "copilot-proxy/gpt-5.2-codex": {},
+        "copilot-proxy/grok-code-fast-1": {},
+        "ollama/glm-4.7-flash:latest": {},
+        "ollama/glm-5:cloud": {},
+        "ollama/gpt-oss:120b-cloud": {},
+        "ollama/kimi-k2.5:cloud": {},
+        "ollama/llama3:latest": {},
+        "ollama/minimax-m2.5:cloud": {},
+        "ollama/qwen2.5:latest": {},
+        "openrouter/arcee-ai/trinity-large-preview:free": {
+          "alias": "Trinity-Large"
+        },
+        "openrouter/auto": {
+          "alias": "OpenRouter"
+        },
+        "openrouter/free": {
+          "alias": "OR-Free"
+        },
+        "openrouter/nvidia/nemotron-3-nano-30b-a3b:free": {
+          "alias": "Nemotron-30B"
+        },
+        "openrouter/nvidia/nemotron-nano-12b-v2-vl:free": {
+          "alias": "Nemotron-12B-VL"
+        },
+        "openrouter/openai/gpt-oss-120b:free": {
+          "alias": "GPT-OSS-120B"
+        },
+        "openrouter/qwen/qwen3-235b-a22b-thinking-2507": {
+          "alias": "Qwen3-235B-Think"
+        },
+        "openrouter/qwen/qwen3-coder:free": {
+          "alias": "Qwen3-Coder"
+        },
+        "openrouter/qwen/qwen3-next-80b-a3b-instruct:free": {
+          "alias": "Qwen3-80B"
+        },
+        "openrouter/qwen/qwen3-vl-235b-a22b-thinking": {
+          "alias": "Qwen3-VL-235B"
+        },
+        "openrouter/stepfun/step-3.5-flash:free": {
+          "alias": "StepFun-Flash"
+        },
+        "openrouter/upstage/solar-pro-3:free": {
+          "alias": "Solar-Pro-3"
+        },
+        "openrouter/z-ai/glm-4.5-air:free": {
+          "alias": "GLM-4.5-Air"
+        }
+      },
+      "workspace": "/root/.openclaw/workspace",
+      "memorySearch": {
+        "enabled": true
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "30m"
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "bootstrap-extra-files": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "8653358570:AAHuZCOgxNpZCLD3x1KgfUoFnT7haA8FQYw",
+      "groupPolicy": "allowlist",
+      "dms": {
+        "custom-1": {}
+      },
+      "streaming": "partial"
+    },
+    "msteams": {
+      "enabled": true,
+      "groupPolicy": "allowlist",
+      "agents": [
+        "account-manager"
+      ],
+      "dmPolicy": "allowlist",
+      "dms": {
+        "account-manager": {}
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "20e7e653746a5269a96f0624ac0a22738122b6c7c209a528"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "calendar.add",
+        "contacts.add",
+        "reminders.add"
+      ]
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "copilot-proxy": {
+        "enabled": true
+      },
+      "telegram": {
+        "enabled": true
+      },
+      "msteams": {
+        "enabled": true
+      }
+    }
+  }
+}

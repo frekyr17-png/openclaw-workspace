@@ -1,0 +1,39 @@
+# SHORT TIMEFRAME TRADING LAB - Deployed 2026-03-03
+# Evaluation: 3-5 days for rapid feedback
+
+# === 5-MINUTE SCALPERS (FASTEST) ===
+# ALPHA-001: BTC Trend Scalper (5m)
+*/5 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py ALPHA-001 >> /root/.openclaw/workspace/trading-lab/trader-alpha.log 2>&1
+
+# DELTA-001: ETH Momentum Burst (5m)
+*/5 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py DELTA-001 >> /root/.openclaw/workspace/trading-lab/trader-delta.log 2>&1
+
+# ZETA-001: SOL Hyper Scalper (5m) - UPGRADED from 1h
+*/5 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py ZETA-001 >> /root/.openclaw/workspace/trading-lab/trader-zeta.log 2>&1
+
+# === 15-MINUTE SWINGS (MEDIUM SPEED) ===
+# BETA-001: ETH Mean Reversion Quick (15m)
+*/15 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py BETA-001 >> /root/.openclaw/workspace/trading-lab/trader-beta.log 2>&1
+
+# EPSILON-001: BTC Micro Swing (15m)
+*/15 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py EPSILON-001 >> /root/.openclaw/workspace/trading-lab/trader-epsilon.log 2>&1
+
+# ETA-001: XRP Trend Blitz (15m) - UPGRADED from 1h
+*/15 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py ETA-001 >> /root/.openclaw/workspace/trading-lab/trader-eta.log 2>&1
+
+# === 30-MINUTE BREAKOUT (CONFIRMATION) ===
+# GAMMA-001: BTC Breakout Fast (30m)
+*/30 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py GAMMA-001 >> /root/.openclaw/workspace/trading-lab/trader-gamma.log 2>&1
+
+# === GOLD SCALPING (Already Short Timeframe) ===
+# GOLD-5M: Every 5 minutes (Mon-Fri)
+*/5 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py GOLD-5M >> /root/.openclaw/workspace/trading-lab/trader-gold-5m.log 2>&1
+
+# GOLD-15M: Every 15 minutes (Mon-Fri)
+*/15 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py GOLD-15M >> /root/.openclaw/workspace/trading-lab/trader-gold-15m.log 2>&1
+
+# GOLD-30M: Every 30 minutes (Mon-Fri)
+*/30 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py GOLD-30M >> /root/.openclaw/workspace/trading-lab/trader-gold-30m.log 2>&1
+
+# GOLD-1H: Hourly momentum (Mon-Fri)
+0 * * * 1-5 /usr/bin/python3 /root/.openclaw/workspace/trading-lab/trader.py GOLD-001 >> /root/.openclaw/workspace/trading-lab/trader-gold.log 2>&1

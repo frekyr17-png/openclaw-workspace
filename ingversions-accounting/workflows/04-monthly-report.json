@@ -1,0 +1,184 @@
+{
+  "name": "Monthly Financial Report",
+  "nodes": [
+    {
+      "id": "report-001",
+      "name": "Schedule - 1st of Month",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [100, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 1 * *"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "report-002",
+      "name": "Get Previous Month",
+      "type": "n8n-nodes-base.code",
+      "position": [300, 300],
+      "parameters": {
+        "jsCode": "const now = new Date();\nnow.setMonth(now.getMonth() - 1);\nconst year = now.getFullYear();\nconst month = now.getMonth() + 1;\nconst yearMonth = `${year}-${String(month).padStart(2, '0')}`;\nconst monthName = now.toLocaleString('default', { month: 'long' });\n\nreturn [{\n  json: {\n    year: year,\n    month: month,\n    year_month: yearMonth,\n    month_name: monthName\n  }\n"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "report-003",
+      "name": "Get Salary Summary",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 100],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "salary_records",
+        "columns": ["gross_earnings", "total_deductions", "net_salary"],
+        "where": "year_month = '{{ $json.year_month }}'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "report-004",
+      "name": "Get Expense Summary",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 300],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "expenses",
+        "columns": ["category", "amount", "total_amount", "client_id", "status"],
+        "where": "TO_CHAR(expense_date, 'YYYY-MM') = '{{ $json.year_month }}'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "report-005",
+      "name": "Get Client Revenue",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 500],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "clients",
+        "columns": ["id", "client_name", "contract_value"]
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "report-006",
+      "name": "Calculate Financial Summary",
+      "type": "n8n-nodes-base.code",
+      "position": [700, 300],
+      "parameters": {
+        "jsCode": "const vars = $input.all();\nconst params = vars[0].json;\n\n// Salary data\nconst salaryData = vars[1]?.json || [];\nconst totalGross = salaryData.reduce((s, r) => s + parseFloat(r.gross_earnings || 0), 0);\nconst totalNet = salaryData.reduce((s, r) => s + parseFloat(r.net_salary || 0), 0);\n\n// Expense data\nconst expenseData = vars[2]?.json || [];\nconst totalExpenses = expenseData.reduce((s, r) => s + parseFloat(r.total_amount || 0), 0);\nconst approvedExpenses = expenseData.filter(r => r.status === 'Approved').reduce((s, r) => s + parseFloat(r.total_amount || 0), 0);\n\n// By category\nconst categoryMap = {};\nexpenseData.forEach(e => {\n  categoryMap[e.category] = (categoryMap[e.category] || 0) + parseFloat(e.total_amount || 0);\n});\n\n// By client\nconst clientExpMap = {};\nexpenseData.forEach(e => {\n  const clientId = e.client_id || 'Unallocated';\n  clientExpMap[clientId] = (clientExpMap[clientId] || 0) + parseFloat(e.total_amount || 0);\n});\n\n// Calculate profit (simplified - assumes monthly revenue recognition)\nconst clients = vars[3]?.json || [];\nconst totalRevenue = clients.reduce((s, c) => s + parseFloat(c.contract_value || 0), 0) / 12;\nconst grossProfit = totalRevenue - totalExpenses;\nconst netProfit = grossProfit - totalNet; // After salaries\nconst margin = totalRevenue > 0 ? (netProfit / totalRevenue * 100).toFixed(2) : 0;\n\nreturn [{\n  json: {\n    report_month: params.month_name,\n    report_year: params.year,\n    year_month: params.year_month,\n    employee_count: salaryData.length,\n    total_gross_salary: totalGross,\n    total_net_salary: totalNet,\n    total_expenses: totalExpenses,\n    approved_expenses: approvedExpenses,\n    pending_expenses: totalExpenses - approvedExpenses,\n    category_breakdown: categoryMap,\n    client_expenses: clientExpMap,\n    total_revenue: totalRevenue,\n    gross_profit: grossProfit,\n    net_profit: netProfit,
+    profit_margin: margin\n  }\n}]"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "report-007",
+      "name": "Generate Report PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 300],
+      "parameters": {
+        "url": "http://localhost:3500/generate-monthly-report",
+        "method": "POST",
+        "jsonBody": "={{ $json }}",
+        "sendBody": true,
+        "specifyBody": "json"
+      },
+      "typeVersion": 4.2
+    },
+    {
+      "id": "report-008",
+      "name": "Send Monthly Report to Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [1100, 300],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "{{ $env.FINANCE_CHANNEL_ID }}",
+        "message": "=📊 **Monthly Financial Report - {{ $json.report_month }} {{ $json.report_year }}**\n\n━━━━━━━━━━━━━━━━━━━━━━━\n\n💰 **Revenue & Profit**\n• Total Revenue: ₹{{ $json.total_revenue.toLocaleString('en-IN') }}\n• Gross Profit: ₹{{ $json.gross_profit.toLocaleString('en-IN') }}\n• Net Profit: ₹{{ $json.net_profit.toLocaleString('en-IN') }}\n• Profit Margin: {{ $json.profit_margin }}%\n\n━━━━━━━━━━━━━━━━━━━━━━━\n\n👥 **Payroll Summary**\n• Employees: {{ $json.employee_count }}\n• Total Gross Salary: ₹{{ $json.total_gross_salary.toLocaleString('en-IN') }}\n• Total Net Salary: ₹{{ $json.total_net_salary.toLocaleString('en-IN') }}\n\n━━━━━━━━━━━━━━━━━━━━━━━\n\n📉 **Expense Summary**\n• Total Expenses: ₹{{ $json.total_expenses.toLocaleString('en-IN') }}\n• Approved: ₹{{ $json.approved_expenses.toLocaleString('en-IN') }}\n• Pending: ₹{{ $json.pending_expenses.toLocaleString('en-IN') }}\n\n📊 **By Category:**\n{{ Object.entries($json.category_breakdown).map(([k, v]) => `• ${k}: ₹${v.toLocaleString('en-IN')}`).join('\\n') }}\n\n━━━━━━━━━━━━━━━━━━━━━━━\n\n📎 Full PDF report attached.",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "report-009",
+      "name": "Save Financial Summary",
+      "type": "n8n-nodes-base.postgres",
+      "position": [900, 500],
+      "parameters": {
+        "operation": "upsert",
+        "schema": "public",
+        "table": "monthly_financial_summary",
+        "mode": "insert",
+        "columns": {
+          "values": {
+            "year_month": "={{ $json.year_month }}",
+            "month_name": "={{ $json.report_month }}",
+            "total_revenue": "={{ $json.total_revenue }}",
+            "total_expenses": "={{ $json.total_expenses }}",
+            "salary_expenses": "={{ $json.total_net_salary }}",
+            "gross_profit": "={{ $json.gross_profit }}",
+            "net_profit": "={{ $json.net_profit }}",
+            "profit_margin": "={{ $json.profit_margin }}",
+            "report_generated": "=true",
+            "category_expenses": "={{ JSON.stringify($json.category_breakdown) }}",
+            "client_expenses": "={{ JSON.stringify($json.client_expenses) }}"
+          }
+        }
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    }
+  ],
+  "connections": {
+    "Schedule - 1st of Month": {
+      "main": [[{ "node": "Get Previous Month", "type": "main", "index": 0 }]]
+    },
+    "Get Previous Month": {
+      "main": [
+        [{ "node": "Get Salary Summary", "type": "main", "index": 0 }],
+        [{ "node": "Get Expense Summary", "type": "main", "index": 0 }],
+        [{ "node": "Get Client Revenue", "type": "main", "index": 0 }]
+      ]
+    },
+    "Get Salary Summary": {
+      "main": [[{ "node": "Calculate Financial Summary", "type": "main", "index": 0 }]]
+    },
+    "Get Expense Summary": {
+      "main": [[{ "node": "Calculate Financial Summary", "type": "main", "index": 0 }]]
+    },
+    "Get Client Revenue": {
+      "main": [[{ "node": "Calculate Financial Summary", "type": "main", "index": 0 }]]
+    },
+    "Calculate Financial Summary": {
+      "main": [
+        [{ "node": "Generate Report PDF", "type": "main", "index": 0 }],
+        [{ "node": "Save Financial Summary", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Report PDF": {
+      "main": [[{ "node": "Send Monthly Report to Teams", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": ["Report", "Monthly", "Financial"]
+}

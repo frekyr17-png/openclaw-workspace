@@ -1,0 +1,137 @@
+{
+  "name": "Expense Tracking - Teams Form to Database",
+  "nodes": [
+    {
+      "id": "expense-001",
+      "name": "Expense Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [100, 300],
+      "parameters": {
+        "path": "expense-submission",
+        "options": {},
+        "httpMethod": "POST",
+        "responseMode": "responseNode"
+      },
+      "typeVersion": 2
+    },
+    {
+      "id": "expense-002",
+      "name": "Validate Expense Data",
+      "type": "n8n-nodes-base.code",
+      "position": [300, 300],
+      "parameters": {
+        "jsCode": "const form = $input.first().json.body;\n\nconst required = ['employee_id', 'expense_date', 'category', 'amount', 'description'];\nconst missing = required.filter(f => !form[f]);\n\nif (missing.length > 0) {\n  return [{\n    json: { success: false, error: `Missing: ${missing.join(', ')}` }\n  }];\n}\n\nconst amount = parseFloat(form.amount);\nconst gst = parseFloat(form.gst_amount || 0);\n\nif (isNaN(amount) || amount <= 0) {\n  return [{\n    json: { success: false, error: 'Invalid amount' }\n  }];\n}\n\n// Generate expense number\nconst timestamp = Date.now();\nconst expNumber = `EXP-${form.employee_id}-${timestamp.toString().slice(-6)}`;\n\nreturn [{\n  json: {\n    success: true,\n    data: {\n      expense_number: expNumber,\n      employee_id: form.employee_id,\n      expense_date: form.expense_date,\n      client_id: form.client_id || null,\n      category: form.category,\n      description: form.description,\n      amount: amount,\n      gst_amount: gst,\n      total_amount: amount + gst,\n      receipt_attached: form.has_receipt === 'yes' || form.has_receipt === true,\n      project_code: form.project_code || null,\n      status: 'Pending'\n    }\n  }\n}"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "expense-003",
+      "name": "Insert Expense Record",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 300],
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "expenses",
+        "dataMode": "define",
+        "columns": {
+          "values": {
+            "expense_number": "={{ $json.data.expense_number }}",
+            "employee_id": "={{ $json.data.employee_id }}",
+            "expense_date": "={{ $json.data.expense_date }}",
+            "client_id": "={{ $json.data.client_id }}",
+            "category": "={{ $json.data.category }}",
+            "description": "={{ $json.data.description }}",
+            "amount": "={{ $json.data.amount }}",
+            "gst_amount": "={{ $json.data.gst_amount }}",
+            "total_amount": "={{ $json.data.total_amount }}",
+            "receipt_attached": "={{ $json.data.receipt_attached }}",
+            "project_code": "={{ $json.data.project_code }}",
+            "status": "={{ $json.data.status }}"
+          }
+        }
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "expense-004",
+      "name": "Get Employee Name",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 500],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "employees",
+        "columns": ["full_name", "team_id"],
+        "where": "employee_id = '{{ $json.data.employee_id }}'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "expense-005",
+      "name": "Send Expense Alert to Finance",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [700, 400],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "{{ $env.FINANCE_CHANNEL_ID }}",
+        "message": "=📝 **New Expense Submitted**\n\n**Employee:** {{ $json.full_name }} ({{ $input.first().json.data.employee_id }})\n**Expense #:** {{ $input.first().json.data.expense_number }}\n**Date:** {{ $input.first().json.data.expense_date }}\n**Category:** {{ $input.first().json.data.category }}\n**Client:** {{ $input.first().json.data.client_id || 'N/A' }}\n**Amount:** ₹{{ $input.first().json.data.amount.toLocaleString('en-IN') }}\n**GST:** ₹{{ $input.first().json.data.gst_amount.toLocaleString('en-IN') }}\n**Total:** ₹{{ $input.first().json.data.total_amount.toLocaleString('en-IN') }}\n\n**Description:** {{ $input.first().json.data.description }}\n\nReceipt Attached: {{ $input.first().json.data.receipt_attached ? '✅' : '❌' }}\n\n[Approve | Reapprove | View Details]",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "expense-006",
+      "name": "Form Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [700, 100],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, expense_number: $input.first().json.data.expense_number, message: 'Expense submitted successfully' }) }}"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "expense-007",
+      "name": "Form Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [500, 600],
+      "parameters": {
+        "respondWith": "json",
+        "statusCode": 400,
+        "responseBody": "={{ JSON.stringify($input.first().json) }}"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Expense Form Webhook": {
+      "main": [[{ "node": "Validate Expense Data", "type": "main", "index": 0 }]]
+    },
+    "Validate Expense Data": {
+      "main": [
+        [{ "node": "Insert Expense Record", "type": "main", "index": 0 }],
+        [{ "node": "Form Error Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "Insert Expense Record": {
+      "main": [
+        [{ "node": "Get Employee Name", "type": "main", "index": 0 }],
+        [{ "node": "Form Success Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "Get Employee Name": {
+      "main": [[{ "node": "Send Expense Alert to Finance", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": ["Expense", "Teams", "Finance"]
+}

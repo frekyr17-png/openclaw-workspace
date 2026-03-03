@@ -42,3 +42,50 @@
 - Batch heartbeat checks
 - Cache frequently accessed data in memory files
 - Build skills for repeated tasks
+
+## Model Selection (Decided)
+- **Main/Default:** `ollama/kimi-k2.5:cloud` (from openclaw.json)
+- **Heartbeat:** 30 min interval - use free models (OR-Free, Qwen3-80B) per HEARTBEAT.md
+- **Cron jobs:** Direct Python scripts, no LLM involved
+- **Trading bot:** Technical analysis (SMA, RSI) - no LLM, just ccxt library
+
+## LinkedIn Lead Gen (ingversions digital)
+- Target: Europe (UK, Germany, France, Netherlands) + USA
+- Industries: Manufacturing, Healthcare, Real Estate, D2C, Agriculture
+- Exclude: IT, Software, Digital Agencies
+
+## Phineas & Ferb - 1% Daily Learning Plan
+
+**Program:** Figma MCP + Shopify Liquid Development
+**Pace:** 1% daily (sustainable, no API burn)
+**Duration:** 5 weeks to production-ready
+
+### Daily Tasks (Mon-Fri)
+
+**Phineas 🔧 (Figma MCP):**
+- 1 small project or learning module
+- Document findings in /root/.openclaw/workspace/agents/phineas/
+- Create 1 reusable code snippet
+- Test 1 integration pattern
+
+**Ferb 🔩 (Shopify Liquid):**
+- 1 Liquid template exercise
+- Build 1 component/snippet
+- Test on Shopify dev store
+- Document in /root/.openclaw/workspace/agents/ferb/
+
+### Weekly Deliverables
+- 5 working Figma MCP examples
+- 5 working Liquid templates
+- 1 combined integration demo
+
+### Timeline
+- Week 1: Fundamentals
+- Week 2-3: Intermediate patterns
+- Week 4: Advanced integrations
+- Week 5: Production-ready systems
+
+### Progress Tracking
+- Daily standup (brief status)
+- Weekly demos for Rahul
+- Monthly milestone review

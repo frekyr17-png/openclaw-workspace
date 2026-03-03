@@ -1,0 +1,211 @@
+{
+  "name": "Form 16 Annual Certificate Generation (India)",
+  "nodes": [
+    {
+      "id": "form16-001",
+      "name": "Schedule - April 10",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [100, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 10 4 *"
+            }
+          ]
+        }
+      },
+      "notes": "Runs April 10th every year (after FY closes March 31)",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "form16-002",
+      "name": "Get Financial Year Info",
+      "type": "n8n-nodes-base.code",
+      "position": [300, 300],
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst currentYear = now.getFullYear();\nconst month = now.getMonth() + 1; // 1-12\n\n// FY: April 1 to March 31\nlet fyStart, fyEnd;\nif (month < 4) {\n  // We're in Jan/Feb/Mar before FY close\n  fyStart = currentYear - 1;\n  fyEnd = currentYear;\n} else {\n  // After April\n  fyStart = currentYear;\n  fyEnd = currentYear + 1;\n}\n\nconst financialYear = `${fyStart}-${String(fyEnd).slice(-2)}`;\nconst assessmentYear = `${fyEnd}-${String(fyEnd + 1).slice(-2)}`;\n\nreturn [{\n  json: {\n    fy_start: fyStart,\n    fy_end: fyEnd,\n    financial_year: financialYear,\n    assessment_year: assessmentYear\n  }\n}]"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "form16-003",
+      "name": "Get All Active Employees",
+      "type": "n8n-nodes-base.postgres",
+      "position": [500, 300],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "employees",
+        "where": "is_active = true OR date_of_joining <= '{{ $json.fy_start }}-04-01'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "form16-004",
+      "name": "Get Annual Salary Data",
+      "type": "n8n-nodes-base.postgres",
+      "position": [700, 300],
+      "parameters": {
+        "operation": "select",
+        "schema": "public",
+        "table": "salary_records",
+        "columns": ["employee_id", "gross_earnings", "basic_salary", "hra", "tds", "pf_employee", "year_month"],
+        "where": "employee_id = '{{ $json.employee_id }}' AND year_month >= '{{ $json.fy_start }}-04' AND year_month <= '{{ $json.fy_end }}-03'"
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "form16-005",
+      "name": "Calculate Form 16 Data",
+      "type": "n8n-nodes-base.code",
+      "position": [900, 300],
+      "parameters": {
+        "jsCode": "const emp = $input.all()[0].json;\nconst fy = $input.all()[1].json;\nconst salaryData = $input.all()[2]?.json || [];\n\n// Calculate annual totals\nconst gross = salaryData.reduce((s, r) => s + parseFloat(r.gross_earnings || 0), 0);\nconst basic = salaryData.reduce((s, r) => s + parseFloat(r.basic_salary || 0), 0);\nconst hra = salaryData.reduce((s, r) => s + parseFloat(r.hra || 0), 0);\nconst tds = salaryData.reduce((s, r) => s + parseFloat(r.tds || 0), 0);\nconst pf = salaryData.reduce((s, r) => s + parseFloat(r.pf_employee || 0), 0);\n\n// HRA exemption (40% of basic for non-metro)\nconst hraExempt = Math.min(hra, basic * 0.4);\n\n// Standard deduction (old regime)\nconst stdDeduction = 50000;\n\n// 80C (PF is eligible - max 1.5L)\nconst c80 = Math.min(pf, 150000);\n\n// Taxable income calculation (old regime)\nconst exemptAllow = hraExempt;\nconst balanceIncome = gross - exemptAllow;\nconst taxableIncome = balanceIncome - stdDeduction - c80;\n\n// Tax calculation (old regime slabs)\nlet tax = 0;\nlet remaining = taxableIncome;\n\nif (taxableIncome <= 250000) {\n  tax = 0;\n} else if (taxableIncome <= 500000) {\n  tax = (taxableIncome - 250000) * 0.05;\n} else if (taxableIncome <= 1000000) {\n  tax = 12500 + (taxableIncome - 500000) * 0.2;\n} else {\n  tax = 112500 + (taxableIncome - 1000000) * 0.3;\n}\n\n// Rebate 87A (if taxable <= 5L)\nconst rebate = taxableIncome <= 500000 ? Math.min(tax, 12500) : 0;\nconst taxAfterRebate = tax - rebate;\n\n// 4% cess\nconst cess = taxAfterRebate * 0.04;\nconst totalTax = taxAfterRebate + cess;\n\n// Tax payable/refund\nconst taxPayable = totalTax - tds;\n\nreturn [{\n  json: {\n    employee_id: emp.employee_id,\n    full_name: emp.full_name,\n    pan_number: emp.pan_number,\n    team_id: emp.team_id,\n    financial_year: fy.financial_year,\n    assessment_year: fy.assessment_year,\n    fy_start: fy.fy_start,\n    fy_end: fy.fy_end,\n    // Income\n    gross_salary: gross,\n    exempt_allowances: exemptAllow,\n    balance_income: balanceIncome,\n    deductions_std: stdDeduction,\n    chapter_vi_a: c80,\n    taxable_income: taxableIncome,\n    // Tax\n    tax_on_income: tax,\n    rebate_87a: rebate,\n    tax_after_rebate: taxAfterRebate,\n    cess_4: cess,\n    total_tax: totalTax,\n    total_tds_deducted: tds,\n    tax_payable_refund: taxPayable\n  }\n}]"\n      },
+      "typeVersion": 2
+    },
+    {
+      "id": "form16-006",
+      "name": "Save Form 16 Record",
+      "type": "n8n-nodes-base.postgres",
+      "position": [1100, 300],
+      "parameters": {
+        "operation": "upsert",
+        "schema": "public",
+        "table": "form16_data",
+        "mode": "insert",
+        "columns": {
+          "values": {
+            "employee_id": "={{ $json.employee_id }}",
+            "financial_year": "={{ $json.financial_year }}",
+            "assessment_year": "={{ $json.assessment_year }}",
+            "gross_salary": "={{ $json.gross_salary }}",
+            "exempt_allowances": "={{ $json.exempt_allowances }}",
+            "balance_income": "={{ $json.balance_income }}",
+            "deductions_std": "={{ $json.deductions_std }}",
+            "chapter_vi_a": "={{ $json.chapter_vi_a }}",
+            "taxable_income": "={{ $json.taxable_income }}",
+            "tax_on_income": "={{ $json.tax_on_income }}",
+            "rebate_87a": "={{ $json.rebate_87a }}",
+            "tax_after_rebate": "={{ $json.tax_after_rebate }}",
+            "cess_4": "={{ $json.cess_4 }}",
+            "total_tax": "={{ $json.total_tax }}",
+            "total_tds_deducted": "={{ $json.total_tds_deducted }}",
+            "tax_payable_refund": "={{ $json.tax_payable_refund }}"
+          }
+        }
+      },
+      "credentials": {
+        "postgres": { "id": "postgres-local", "name": "Local Postgres" }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "form16-007",
+      "name": "Generate Form 16 PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1100, 500],
+      "parameters": {
+        "url": "http://localhost:3500/generate-form16",
+        "method": "POST",
+        "jsonBody": "={{ $json }}",
+        "sendBody": true,
+        "specifyBody": "json"
+      },
+      "typeVersion": 4.2
+    },
+    {
+      "id": "form16-008",
+      "name": "Send Form 16 to Employee",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [1300, 500],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "={{ $json.team_id }}",
+        "message": "=📋 **Form 16 Certificate Generated**\n\nDear {{ $json.full_name }},\n\nYour **Form 16** for Financial Year **{{ $json.financial_year }}** (Assessment Year {{ $json.assessment_year }}) has been generated.\n\n📊 **Summary:**\n• Gross Salary: ₹{{ $json.gross_salary.toLocaleString('en-IN') }}\n• Exempt Allowances: ₹{{ $json.exempt_allowances.toLocaleString('en-IN') }}\n• Standard Deduction: ₹{{ $json.deductions_std.toLocaleString('en-IN') }}\n• Taxable Income: ₹{{ $json.taxable_income.toLocaleString('en-IN') }}\n• Tax on Income: ₹{{ $json.tax_on_income.toLocaleString('en-IN') }}\n• TDS Deducted: ₹{{ $json.total_tds_deducted.toLocaleString('en-IN') }}\n• Tax Payable/Refund: ₹{{ $json.tax_payable_refund.toLocaleString('en-IN') }}\n\n📎 Your Form 16 PDF is attached. Please use this for filing your Income Tax Return.",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "form16-009",
+      "name": "Send Summary to HR",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [1300, 100],
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "{{ $env.HR_CHANNEL_ID }}",
+        "message": "=✅ **Form 16 Generation Complete**\n\nFinancial Year: {{ $json.financial_year }}\nAssessment Year: {{ $json.assessment_year }}\n\n📋 **Tax Summary:**\n• Total Employees Processed: {{ $json.employee_count }}\n• Total Gross Salary: ₹{{ $json.total_gross.toLocaleString('en-IN') }}\n• Total Taxable Income: ₹{{ $json.total_taxable.toLocaleString('en-IN') }}\n• Total TDS Deducted: ₹{{ $json.total_tds.toLocaleString('en-IN') }}\n\nAll Form 16 certificates have been sent to employees via Teams.",
+        "messageType": "html"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": { "id": "teams-oauth", "name": "Microsoft Teams" }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "form16-010",
+      "name": "Aggregate Summary",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [1100, 100],
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {},
+        "destinationFieldName": "form16_records"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "form16-011",
+      "name": "Prepare Summary Data",
+      "type": "n8n-nodes-base.code",
+      "position": [1300, 200],
+      "parameters": {
+        "jsCode": "const records = $input.first().json.form16_records || [];\nconst fy = records[0]?.json || {};\n\nreturn [{\n  json: {\n    financial_year: fy.financial_year,\n    assessment_year: fy.assessment_year,\n    employee_count: records.length,\n    total_gross: records.reduce((s, r) => s + r.gross_salary, 0),\n    total_taxable: records.reduce((s, r) => s + r.taxable_income, 0),\n    total_tds: records.reduce((s, r) => s + r.total_tds_deducted, 0)\n  }\n}]"\n      },
+      "typeVersion": 2
+    }
+  ],
+  "connections": {
+    "Schedule - April 10": {
+      "main": [[{ "node": "Get Financial Year Info", "type": "main", "index": 0 }]]
+    },
+    "Get Financial Year Info": {
+      "main": [[{ "node": "Get All Active Employees", "type": "main", "index": 0 }]]
+    },
+    "Get All Active Employees": {
+      "main": [[{ "node": "Get Annual Salary Data", "type": "main", "index": 0 }]]
+    },
+    "Get Annual Salary Data": {
+      "main": [[{ "node": "Calculate Form 16 Data", "type": "main", "index": 0 }]]
+    },
+    "Calculate Form 16 Data": {
+      "main": [
+        [{ "node": "Save Form 16 Record", "type": "main", "index": 0 }],
+        [{ "node": "Generate Form 16 PDF", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Form 16 PDF": {
+      "main": [[{ "node": "Send Form 16 to Employee", "type": "main", "index": 0 }]]
+    },
+    "Save Form 16 Record": {
+      "main": [[{ "node": "Aggregate Summary", "type": "main", "index": 0 }]]
+    },
+    "Aggregate Summary": {
+      "main": [[{ "node": "Prepare Summary Data", "type": "main", "index": 0 }]]
+    },
+    "Prepare Summary Data": {
+      "main": [[{ "node": "Send Summary to HR", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": ["Form16", "Tax", "Annual"]
+}
