@@ -1,6 +1,16 @@
 # MEMORY.md - Long-Term Memory
 
-_Last updated: 2025-02-22_
+_Last updated: 2026-03-03_
+
+## Session Management Protocol (Starting 2026-03-03)
+
+**CRITICAL: Before /reset or /new:**
+1. Push ENTIRE chat data to Git (`git add -A && git commit && git push`)
+2. Create session summary in SESSION_SUMMARIES/ folder
+3. Update MEMORY.md with key decisions
+4. THEN start new session and read summary first
+
+**Why:** Never lose context. Every session builds on previous knowledge.
 
 ## Who I Am
 - Rahul's first AI employee / co-founder
@@ -35,12 +45,49 @@ _Last updated: 2025-02-22_
 - 50+ alternatives mapped across 10 categories
 - Key insight: market splitting into DIY agents, no-code business, enterprise, vertical specialists
 
-### LinkedIn Lead Gen (ingversions digital) - Started 2026-03-03
-- **Lead:** Sonic 🎯 (Business & Revenue)
+### LinkedIn Lead Gen (ingversions digital) — STARTED 2026-03-03
+**Owner:** Sonic 🎯 (Head of Business & Revenue)
+**Status:** Phase 1 Complete (Package Created), Ready for Profile Setup
+
+**Campaign Overview:**
 - **Target:** Non-tech founders in Europe (UK, DE, FR, NL) + USA
-- **Industries:** Manufacturing, Healthcare, Real Estate, D2C, Agriculture
-- **Timeline:** Week 1 = profiles live + first 50 leads prospected
-- **Goal:** Build pipeline of clients for ERP/CRM/Web Dev/AI automation services
+- **Industries:** Manufacturing (priority), Healthcare, Real Estate, D2C, Agriculture
+- **Goal:** First qualified lead in 7 days, €50K+ pipeline by Month 1
+
+**Sonic's Work (Day 1):**
+- ✅ 7 campaign files created: `/root/.openclaw/workspace/linkedin-campaign/`
+- ✅ LinkedIn strategy: Ranza Digital (2,053 workflows), LinkedIn scraper as #1 tool
+- ✅ Personal profile copy: Headlines (3), About sections (2), Experience template
+
+### Account Manager 👔 - PAYROLL & HR OPERATIONS
+**Status:** ✅ COMPLETE - 5 n8n workflows deployed
+**Owner:** Account Manager Agent
+**System:** MS Teams integrated n8n workflows
+**Scope:** ingversions digital company operations (NOT lead management)
+
+**Workflows Built:**
+1. ✅ Employee Onboarding (01-employee-onboarding.json)
+2. ✅ Monthly Payroll (02-monthly-payroll.json)
+3. ✅ Expense Tracking (03-expense-tracking.json)
+4. ✅ Monthly Report (04-monthly-report.json)
+5. ✅ Form 16 Tax Generation (05-form16-generation.json)
+
+**Architecture:** SQLite/Postgres + PDF generation + MS Teams integration
+- ✅ Company page content: About (2 versions), taglines (4), specialties
+- ✅ Content calendar ready: 3 LinkedIn posts with hooks, structure, hashtags
+- ✅ Lead gen framework: Search queries for 5 countries, connection templates (4 industries), follow-up messages
+- ✅ Execution guide: Master roadmap with checklists + metrics tracker
+- ✅ Lead tracking CSV template ready
+
+**Next Actions (Require Rahul):**
+- [ ] Review content files, select preferred versions
+- [ ] Create LinkedIn profiles using copy-paste content
+- [ ] Design visual assets (headshot, banners, post graphics)
+- [ ] Execute Phase 1: Profile setup (3-4 hours)
+- [ ] Execute Phase 2: Publish first post (Day 2)
+- [ ] Execute Phase 3: Start lead gen outreach (Day 4)
+
+**Files Location:** `linkedin-campaign/START-HERE.md` (entry point)
 
 ## Revenue Roadmap
 - Phase 1: Paper trading → prove strategies work

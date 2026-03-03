@@ -43,11 +43,13 @@
 - Cache frequently accessed data in memory files
 - Build skills for repeated tasks
 
-## Model Selection (Decided)
-- **Main/Default:** `ollama/kimi-k2.5:cloud` (from openclaw.json)
+## Model Selection (Updated 2026-03-03)
+- **Main/Default:** `anthropic/claude-haiku-4-5` (switched from ollama/kimi-k2.5:cloud due to rate limits)
+- **Reason:** Ollama free tier hit weekly limit, Haiku is reliable + cheap ($0.25-1.25/M tokens)
 - **Heartbeat:** 30 min interval - use free models (OR-Free, Qwen3-80B) per HEARTBEAT.md
 - **Cron jobs:** Direct Python scripts, no LLM involved
 - **Trading bot:** Technical analysis (SMA, RSI) - no LLM, just ccxt library
+- **Fallback:** Still have kimi-k2.5:cloud available when Haiku is needed elsewhere
 
 ## LinkedIn Lead Gen (ingversions digital)
 - Target: Europe (UK, Germany, France, Netherlands) + USA
