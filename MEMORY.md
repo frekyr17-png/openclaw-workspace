@@ -62,19 +62,36 @@ This is the core operating system for the autonomous AI agency. All agents opera
 
 ## Active Projects
 
-### Trading Lab (Cycle 1, started 2025-02-21)
-**Updated 2026-02-23: Switched to aggressive mode**
-- **GOAL:** 10% daily profit per bot = $10/day per $100 allocation = $200/month per bot
-- **12 strategies** on Binance testnet (5K USDT + 5K USDC paper)
-- **5-minute scalping** (runs every 5 min): KAPPA-001 (BTC), LAMBDA-001 (ETH), MU-001 (SOL), THETA-001 (XAU), IOTA-001 (XAU)
-- **1-hour fast track** (eval March 7): ZETA-001 (SOL), ETA-001 (XRP) → ETA leading at 55.6% win rate
-- **4-hour standard** (eval March 23): ALPHA-001 (BTC), BETA-001 (ETH), GAMMA-001 (BTC), DELTA-001 (ETH), EPSILON-001 (BTC)
-- **Rule:** No trade in 24h = adjust timeframe/strategy/kill the bot
-- **Strategy updated:** 
-  - Lowered thresholds (trend: 0.1%, meanrev: 1.0 z-score, momentum: 1.5% ROC)
-  - **Trade management:** Target 5-10% profit per trade, exit when hit
-  - **Daily target:** 10% gain per bot portfolio ($10 on $100 allocation)
-  - **Method:** 1 trade or 100 trades — doesn't matter, just hit the 10%
+### Trading Lab (Cycle 1, started 2026-03-03)
+**OFFICIAL STRATEGY LIST (Rahul confirmed 2026-03-03 16:23 UTC)**
+
+**Crypto Pairs (7 bots):**
+1. ALPHA-001 — Trend/BTC/4h
+2. BETA-001 — Mean Reversion/ETH/4h
+3. GAMMA-001 — Breakout/BTC/1d
+4. DELTA-001 — Momentum/ETH/1d
+5. EPSILON-001 — Swing/BTC/4h
+6. ZETA-001 — Momentum/SOL/1h
+7. ETA-001 — Trend/XRP/1h
+
+**Gold (4 bots) - XAU/USDT ONLY:**
+8. GOLD-001 — Momentum/XAUUSDT/1h
+9. GOLD-5M — Momentum/XAUUSDT/5m ⏳ (1 pending trade)
+10. GOLD-15M — Breakout/XAUUSDT/15m
+11. GOLD-30M — Trend/XAUUSDT/30m ⏳ (1 pending trade)
+
+**Current Status:**
+- Total bots: 11 active
+- Active positions: 2 (both GOLD scalping)
+- Total allocation: $1,100 ($100 per bot)
+- Evaluation period: 30 days each
+- **IMPORTANT:** XAU/USDT ONLY - NO other metals (Silver, Copper, Palladium, Platinum)
+
+**Goals:**
+- Prove scalping profitability in 30 days
+- Crypto: 4h+ timeframes for stability
+- Gold: 5m-1h for rapid feedback
+- Target: >50% win rate per bot
 
 ### AI Agent Market Research
 - Comprehensive list saved: research/ai-agent-alternatives.md

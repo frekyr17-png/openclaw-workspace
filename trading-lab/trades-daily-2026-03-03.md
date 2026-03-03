@@ -1,5 +1,5 @@
 # Trading Lab — Daily Report
-**Date:** 2026-03-03 · **Updated:** 14:05 UTC
+**Date:** 2026-03-03 · **Updated:** 16:20 UTC
 
 ---
 
@@ -13,9 +13,11 @@
 
 ---
 
-## 🟡 OPEN POSITIONS (0)
+## 🟡 OPEN POSITIONS (2)
 | Bot | Market | Action | Entry | Opened | Status |
 |-----|--------|--------|-------|--------|--------|
+| **ALPHA-001** | BTC/USDT | SELL | $66,572.3100 | 2026-03-03 15:00 | ⏳ HOLDING |
+| **BETA-001** | ETH/USDT | BUY | $1,938.3600 | 2026-03-03 14:45 | ⏳ HOLDING |
 
 ---
 

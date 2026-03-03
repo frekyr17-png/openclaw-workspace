@@ -11,24 +11,36 @@
 ### 1. TRADING LAB 💰
 **Owner:** Richie Rich 💰  
 **Status:** 🟢 RUNNING  
-**Last Update:** 2026-03-03 (auto-running every 4h + 1h fast track)
+**Last Update:** 2026-03-03 16:23 UTC
 
-| Bot | Timeframe | Win Rate | Status | Next Eval |
-|-----|-----------|----------|--------|-----------|
-| KAPPA-001 | 5m | — | Running | — |
-| LAMBDA-001 | 5m | — | Running | — |
-| MU-001 | 5m | — | Running | — |
-| THETA-001 | 5m | — | Running | — |
-| IOTA-001 | 5m | — | Running | — |
-| ZETA-001 | 1h | — | Running | Mar 7 |
-| ETA-001 | 1h | 55.6% | **LEADING** | Mar 7 |
-| ALPHA-001 | 4h | — | Running | Mar 23 |
-| BETA-001 | 4h | — | Running | Mar 23 |
-| GAMMA-001 | 4h | — | Running | Mar 23 |
-| DELTA-001 | 4h | — | Running | Mar 23 |
-| EPSILON-001 | 4h | — | Running | Mar 23 |
+**11 ACTIVE BOTS (30-day evaluation cycle):**
 
-**Actionable Items:** None (auto-running, evaluation milestones tracked)
+**Crypto Pairs (7):**
+| Bot | Market | TF | Trades | Win% | Status |
+|-----|--------|----|----|-------|--------|
+| ALPHA-001 | BTC | 4h | 0 | — | 🟢 Scanning |
+| BETA-001 | ETH | 4h | 1 | 0% | 🟢 Pending |
+| GAMMA-001 | BTC | 1d | 0 | — | 🟢 Scanning |
+| DELTA-001 | ETH | 1d | 0 | — | 🟢 Scanning |
+| EPSILON-001 | BTC | 4h | 0 | — | 🟢 Scanning |
+| ZETA-001 | SOL | 1h | 0 | — | 🟢 Scanning |
+| ETA-001 | XRP | 1h | 0 | — | 🟢 Scanning |
+
+**Gold Only (4) - XAU/USDT ONLY:**
+| Bot | Market | TF | Trades | Win% | Status |
+|-----|--------|----|----|-------|--------|
+| GOLD-001 | XAU | 1h | 0 | — | 🟢 Scanning |
+| GOLD-5M | XAU | 5m | 1 | 0% | ⏳ Pending |
+| GOLD-15M | XAU | 15m | 0 | — | 🟢 Scanning |
+| GOLD-30M | XAU | 30m | 1 | 0% | ⏳ Pending |
+
+**Capital Allocation:** $1,100 total ($100 per bot)  
+**Active Positions:** 2 (GOLD-5M pending, GOLD-30M pending)  
+**Evaluation End:** 2026-04-03 (30 days)
+
+**CONSTRAINT:** XAU/USDT ONLY - NO other metals (Silver, Copper, Palladium, Platinum)
+
+**Actionable Items:** None (auto-running, evaluation in progress)
 
 ---
 
