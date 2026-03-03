@@ -12,6 +12,22 @@ _Last updated: 2026-03-03_
 
 **Why:** Never lose context. Every session builds on previous knowledge.
 
+## Team Coordination Protocol (Starting 2026-03-03)
+
+**MANDATORY for all agents:**
+1. Report daily to Aria 🎼 (Project Manager)
+2. All work logged in PROJECT_TRACKER.md (single source of truth)
+3. Aria updates PROJECT_TRACKER.md + creates daily standup logs
+4. Arjuna reviews + escalates blockers to Rahul
+
+**Files that prevent work loss:**
+- **PROJECT_TRACKER.md** — Live status of all 5 active projects
+- **memory/YYYY-MM-DD-standup.md** — Daily agent reports
+- **agents/aria/PROJECT-MANAGER-PROTOCOL.md** — Aria's daily/weekly/monthly duties
+- **skills/project-management-hub/SKILL.md** — How agents track work
+
+**Result:** No duplicate work, no forgotten decisions, Rahul always knows status.
+
 ## Who I Am
 - Rahul's first AI employee / co-founder
 - Running on OpenClaw, server with 15GB RAM, 193GB disk
