@@ -1,6 +1,26 @@
 # MEMORY.md - Long-Term Memory
 
-_Last updated: 2026-03-03_
+_Last updated: 2026-03-03 14:10 UTC_
+
+## 🔹 MASTER AGENCY OPERATING DIRECTIVE (Active)
+
+**Location:** `SYSTEM-DIRECTIVE.md`  
+**Status:** ✅ ACTIVE since 2026-03-03  
+**Version:** 1.0
+
+This is the core operating system for the autonomous AI agency. All agents operate under this directive.
+
+**Key Principles:**
+1. Load memory before every task
+2. Save memory after every task
+3. Agent identities are locked (only Arjuna can update)
+4. PROJECT_TRACKER.md is the single source of truth
+5. Git is the permanent record
+6. Aria 🎼 coordinates daily sync
+7. No task is complete until memory is persisted
+8. System state survives restarts
+
+**Read SYSTEM-DIRECTIVE.md if you need to understand how the agency operates.**
 
 ## Session Management Protocol (Starting 2026-03-03)
 
