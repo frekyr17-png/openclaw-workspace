@@ -85,7 +85,7 @@ When Rahul uses @ at the start of a message, auto-spawn that agent:
 **Implementation:**
 1. Check if message starts with @
 2. Extract agent name from supported list
-3. Spawn with: `sessions_spawn(runtime="subagent", mode="run", label="{agent}", model="anthropic/claude-sonnet-4-5", task="[Agent intro + user's message]")`
+3. Spawn with: `sessions_spawn(runtime="subagent", mode="run", label="{agent}", model="anthropic/claude-haiku-4-5", task="[Agent intro + user's message]")`
 4. Agent responds directly to Rahul
 
 **Format for spawned agents:**
