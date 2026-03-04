@@ -134,6 +134,57 @@
 
 ---
 
+### 6. SHOPIFY MINI THEME (DAWN FRAMEWORK) 🎨
+**Owner:** Rick 💻 (Development)  
+**Status:** 🟡 PHASE 1-3 IN PROGRESS  
+**Last Update:** 2026-03-04 20:36 UTC
+
+**Deliverables (✅ PHASE 1-3 COMPLETE):**
+- ✅ Shopify CLI installed globally (`npm install -g @shopify/cli`)
+- ✅ Theme skeleton cloned: `/root/.openclaw/workspace/shopify-dev/xauusd-mini-theme/`
+- ✅ Git repo ready with Shopify skeleton-theme base
+- ⏳ Partner account creation (requires manual browser signup at https://partners.shopify.com/signup)
+- ⏳ Developer store "xauusd-mini-theme-dev" (waiting for account verification)
+
+**Project Scope:**
+- Homepage variant with custom Liquid components
+- Custom CSS styling
+- Mobile responsive design
+- Integration with XAU/USD trading theme
+
+**Eval Period:** 7 days (target completion: 2026-03-11)  
+**Timeline:**
+- Phase 1: Account setup (⏳ Awaiting manual browser signup)
+- Phase 2: Developer store creation (⏳ Blocked on Phase 1)
+- Phase 3: CLI installed & theme init (✅ DONE)
+- Phase 4: Development cycle (Next)
+- Phase 5: Deploy to dev store (Next)
+
+**What Rahul Needs to Do (CRITICAL):**
+- [ ] Go to https://partners.shopify.com/signup
+- [ ] Create account with: **frekyr17@gmail.com**
+- [ ] Complete profile:
+  - Store name: "Rahul's Dev Lab"
+  - Country: India
+  - Business type: Development/Theme building
+- [ ] Verify email inbox
+- [ ] Create test store in Partner Dashboard:
+  - Name: "xauusd-mini-theme-dev"
+  - Purpose: Theme development
+  - Plan: Development (free)
+- [ ] Share store URL + auth details with Rick
+
+**Actionable Items:**
+- [ ] **RAHUL:** Sign up for Shopify Partner (https://partners.shopify.com/signup)
+- [ ] **RAHUL:** Create developer store "xauusd-mini-theme-dev"
+- [ ] **RICK:** After store auth: `shopify auth login` → authenticate with dev store
+- [ ] **RICK:** Begin theme development (custom Liquid, CSS)
+- [ ] **RICK:** Deploy to dev store & test
+
+**Location:** `/root/.openclaw/workspace/shopify-dev/xauusd-mini-theme/`
+
+---
+
 ## 📋 BLOCKER LOG
 
 | Issue | Owner | Status | Impact |
