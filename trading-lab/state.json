@@ -130,7 +130,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-03T17:30:05.996540+00:00",
+          "action": "BUY",
+          "market": "BTC/USDT",
+          "price": 68262.22,
+          "signal_meta": {
+            "sma10": 67973.25,
+            "sma30": 67332.29633333333,
+            "trend_strength": 0.42512311828550864
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -190,10 +203,135 @@
         "stopLoss": "0.4%",
         "positionSize": "$50"
       }
+    },
+    {
+      "id": "GOLD-001",
+      "name": "Gold Hourly Scalper",
+      "type": "momentum",
+      "market": "XAU/USDT:USDT",
+      "timeframe": "1h",
+      "subagent": "trading-gold-hourly",
+      "status": "active",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [
+        {
+          "timestamp": "2026-03-03T11:35:01.915895+00:00",
+          "action": "SELL",
+          "market": "XAU/USDT",
+          "price": 5099.99,
+          "signal_meta": {
+            "momentum": 0.42
+          },
+          "result": "pending"
+        }
+      ],
+      "stats": {
+        "wins": 0,
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "1-1.5%",
+        "stopLoss": "0.5%",
+        "positionSize": "$50"
+      }
+    },
+    {
+      "id": "GOLD-5M",
+      "name": "Gold 5-Minute Scalper",
+      "type": "momentum",
+      "market": "XAU/USDT:USDT",
+      "timeframe": "5m",
+      "subagent": "trading-gold-5m",
+      "status": "active",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [
+        {
+          "timestamp": "2026-03-03T11:35:01.915895+00:00",
+          "action": "SELL",
+          "market": "XAU/USDT",
+          "price": 5099.99,
+          "signal_meta": {
+            "momentum": 0.42
+          },
+          "result": "pending"
+        }
+      ],
+      "stats": {
+        "wins": 0,
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.5-1%",
+        "stopLoss": "0.25%",
+        "positionSize": "$50"
+      }
+    },
+    {
+      "id": "GOLD-15M",
+      "name": "Gold 15-Minute Breakout",
+      "type": "breakout",
+      "market": "XAU/USDT:USDT",
+      "timeframe": "15m",
+      "subagent": "trading-gold-15m",
+      "status": "active",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [],
+      "stats": {
+        "wins": 0,
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "0.8-1.2%",
+        "stopLoss": "0.4%",
+        "positionSize": "$50"
+      }
+    },
+    {
+      "id": "GOLD-30M",
+      "name": "Gold 30-Minute Trend",
+      "type": "trend",
+      "market": "XAU/USDT:USDT",
+      "timeframe": "30m",
+      "subagent": "trading-gold-30m",
+      "status": "active",
+      "deployed": "2026-03-03",
+      "expires": "2026-03-08",
+      "trades": [
+        {
+          "timestamp": "2026-03-03T11:35:01.915895+00:00",
+          "action": "SELL",
+          "market": "XAU/USDT",
+          "price": 5099.99,
+          "signal_meta": {
+            "momentum": 0.42
+          },
+          "result": "pending"
+        }
+      ],
+      "stats": {
+        "wins": 0,
+        "losses": 0,
+        "winRate": 0
+      },
+      "scalping": true,
+      "targets": {
+        "profit": "1-1.5%",
+        "stopLoss": "0.5%",
+        "positionSize": "$50"
+      }
     }
   ],
   "history": [],
-  "lastUpdate": "2026-03-03T16:20:04.301319+00:00",
+  "lastUpdate": "2026-03-04T03:07:30.980562+00:00",
   "nextEvaluation": "2026-03-08",
   "note": "SHORT_TIMEFRAME_MODE: All strategies converted to 5m/15m/30m for rapid feedback loop (3-5 day evaluation cycles)"
 }
