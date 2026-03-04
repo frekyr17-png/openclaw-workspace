@@ -1,25 +1,34 @@
 # Trading Lab — Daily Report
-**Date:** 2026-03-04 · **Updated:** 06:40 UTC
+**Date:** 2026-03-04 · **Updated:** 20:31 UTC
 
 ---
 
-## 🟢 CLOSED TRADES TODAY (1)
+## 🟢 CLOSED TRADES TODAY (5)
 
 | Bot | Market | Action | Entry | Exit | Result | P/L % |
 |-----|--------|--------|-------|------|--------|-------|
 | **ALPHA-001** | BTC/USDT | SELL | $66,572.3100 | $72,650.7000 | 🔴 LOSS | -9.13% |
+| **ALPHA-001** | BTC/USDT | SELL | $67,564.4000 | $71,750.0100 | 🔴 LOSS | -6.19% |
+| **BETA-001** | ETH/USDT | BUY | $1,938.3600 | $2,069.2000 | 🟢 WIN | +6.75% |
+| **EPSILON-001** | BTC/USDT | BUY | $68,262.2200 | $73,670.7000 | 🟢 WIN | +7.92% |
+| **ETA-001** | XRP/USDT | SELL | $1.3530 | $1.4501 | 🔴 LOSS | -7.18% |
 
-**Today's Net P/L:** -9.13%
+**Today's Net P/L:** -7.83%
 
 ---
 
-## 🟡 OPEN POSITIONS (4)
+## 🟡 OPEN POSITIONS (9)
 | Bot | Market | Action | Entry | Opened | Status |
 |-----|--------|--------|-------|--------|--------|
-| **ALPHA-001** | BTC/USDT | SELL | $67,564.4000 | 2026-03-04 03:45 | ⏳ HOLDING |
-| **BETA-001** | ETH/USDT | BUY | $1,938.3600 | 2026-03-03 14:45 | ⏳ HOLDING |
-| **EPSILON-001** | BTC/USDT | BUY | $68,262.2200 | 2026-03-03 17:30 | ⏳ HOLDING |
-| **ETA-001** | XRP/USDT | SELL | $1.3530 | 2026-03-04 04:00 | ⏳ HOLDING |
+| **ALPHA-001** | BTC/USDT | BUY | $72,857.9600 | 2026-03-04 15:50 | ⏳ HOLDING |
+| **BETA-001** | ETH/USDT | SELL | $2,135.6000 | 2026-03-04 16:15 | ⏳ HOLDING |
+| **DELTA-001** | ETH/USDT | SELL | $2,167.8800 | 2026-03-04 20:08 | ⏳ HOLDING |
+| **EPSILON-001** | BTC/USDT | BUY | $73,695.7100 | 2026-03-04 19:57 | ⏳ HOLDING |
+| **ZETA-001** | SOL/USDT | SELL | $93.1800 | 2026-03-04 20:02 | ⏳ HOLDING |
+| **ETA-001** | XRP/USDT | BUY | $1.4527 | 2026-03-04 16:45 | ⏳ HOLDING |
+| **GOLD-001** | XAU/USDT:USDT | SELL | $5,127.8400 | 2026-03-04 20:16 | ⏳ HOLDING |
+| **GOLD-5M** | XAU/USDT:USDT | BUY | $5,135.5100 | 2026-03-04 19:57 | ⏳ HOLDING |
+| **GOLD-30M** | XAU/USDT:USDT | SELL | $5,133.5400 | 2026-03-04 19:54 | ⏳ HOLDING |
 
 ---
 
@@ -27,13 +36,13 @@
 
 | Bot | Type | Market | TF | Wins | Losses | Win Rate | Net P/L |
 |-----|------|--------|----|------|--------|----------|---------|
-| **ALPHA-001** | trend | BTC/USDT | 5m | 0 | 1 | 0.0% | -9.13% |
-| **BETA-001** | meanrev | ETH/USDT | 15m | 0 | 0 | 0% | +0.00% |
+| **ALPHA-001** | trend | BTC/USDT | 5m | 0 | 2 | 0.0% | -15.32% |
+| **BETA-001** | meanrev | ETH/USDT | 15m | 1 | 0 | 100.0% | +6.75% |
 | **GAMMA-001** | breakout | BTC/USDT | 30m | 0 | 0 | 0% | +0.00% |
 | **DELTA-001** | momentum | ETH/USDT | 5m | 0 | 0 | 0% | +0.00% |
-| **EPSILON-001** | swing | BTC/USDT | 15m | 0 | 0 | 0% | +0.00% |
+| **EPSILON-001** | swing | BTC/USDT | 15m | 1 | 0 | 100.0% | +7.92% |
 | **ZETA-001** | momentum | SOL/USDT | 5m | 0 | 0 | 0% | +0.00% |
-| **ETA-001** | trend | XRP/USDT | 15m | 0 | 0 | 0% | +0.00% |
+| **ETA-001** | trend | XRP/USDT | 15m | 0 | 1 | 0.0% | -7.18% |
 | **GOLD-001** | momentum | XAU/USDT:USDT | 1h | 0 | 0 | 0% | +0.00% |
 | **GOLD-5M** | momentum | XAU/USDT:USDT | 5m | 0 | 0 | 0% | +0.00% |
 | **GOLD-15M** | breakout | XAU/USDT:USDT | 15m | 0 | 0 | 0% | +0.00% |

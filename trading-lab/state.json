@@ -38,12 +38,27 @@
             "sma_slow": 68090.48133333333,
             "momentum": 0.6325661456625387
           },
+          "result": "loss",
+          "exit": 71750.01,
+          "pnl": -6.19,
+          "closed": "2026-03-04T09:45:06.174006+00:00"
+        },
+        {
+          "timestamp": "2026-03-04T15:50:03.831981+00:00",
+          "action": "BUY",
+          "market": "BTC/USDT",
+          "price": 72857.96,
+          "signal_meta": {
+            "sma_fast": 72810.504,
+            "sma_slow": 72181.84666666666,
+            "momentum": 0.8709355085309012
+          },
           "result": "pending"
         }
       ],
       "stats": {
         "wins": 0,
-        "losses": 1,
+        "losses": 2,
         "winRate": 0.0
       },
       "scalping": true,
@@ -74,13 +89,28 @@
             "sma20": 1957.9325000000001,
             "target_revert": 3.0
           },
+          "result": "win",
+          "exit": 2069.2,
+          "pnl": 6.75,
+          "closed": "2026-03-04T09:15:05.764070+00:00"
+        },
+        {
+          "timestamp": "2026-03-04T16:15:07.259511+00:00",
+          "action": "SELL",
+          "market": "ETH/USDT",
+          "price": 2135.6,
+          "signal_meta": {
+            "z_score": 1.6009235892988563,
+            "sma20": 2081.25,
+            "target_revert": 3.0
+          },
           "result": "pending"
         }
       ],
       "stats": {
-        "wins": 0,
+        "wins": 1,
         "losses": 0,
-        "winRate": 0
+        "winRate": 100.0
       },
       "scalping": true,
       "targets": {
@@ -122,7 +152,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T20:08:29.165342+00:00",
+          "action": "SELL",
+          "market": "ETH/USDT",
+          "price": 2167.88,
+          "signal_meta": {
+            "roc5": -0.5874287496159447,
+            "roc10": -0.5682782407683394,
+            "momentum_strength": 1.1557069903842843
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -156,13 +199,28 @@
             "sma30": 67332.29633333333,
             "trend_strength": 0.42512311828550864
           },
+          "result": "win",
+          "exit": 73670.7,
+          "pnl": 7.92,
+          "closed": "2026-03-04T19:00:07.705358+00:00"
+        },
+        {
+          "timestamp": "2026-03-04T19:57:01.481347+00:00",
+          "action": "BUY",
+          "market": "BTC/USDT",
+          "price": 73695.71,
+          "signal_meta": {
+            "sma10": 73484.705,
+            "sma30": 72641.592,
+            "trend_strength": 0.30492739951804015
+          },
           "result": "pending"
         }
       ],
       "stats": {
-        "wins": 0,
+        "wins": 1,
         "losses": 0,
-        "winRate": 0
+        "winRate": 100.0
       },
       "scalping": true,
       "targets": {
@@ -181,7 +239,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T20:02:13.984873+00:00",
+          "action": "SELL",
+          "market": "SOL/USDT",
+          "price": 93.18,
+          "signal_meta": {
+            "roc5": -0.7033248081841396,
+            "roc10": -0.10720411663807282,
+            "momentum_strength": 0.8105289248222124
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -216,13 +287,28 @@
             "sma_slow": 1.3563800000000001,
             "momentum": 0.6030758342057796
           },
+          "result": "loss",
+          "exit": 1.4501,
+          "pnl": -7.18,
+          "closed": "2026-03-04T16:30:07.446908+00:00"
+        },
+        {
+          "timestamp": "2026-03-04T16:45:05.894091+00:00",
+          "action": "BUY",
+          "market": "XRP/USDT",
+          "price": 1.4527,
+          "signal_meta": {
+            "sma_fast": 1.45446,
+            "sma_slow": 1.4284933333333332,
+            "momentum": 1.8177660378767557
+          },
           "result": "pending"
         }
       ],
       "stats": {
         "wins": 0,
-        "losses": 0,
-        "winRate": 0
+        "losses": 1,
+        "winRate": 0.0
       },
       "fastTrack": true,
       "scalping": true,
@@ -242,7 +328,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T20:16:59.509381+00:00",
+          "action": "SELL",
+          "market": "XAU/USDT:USDT",
+          "price": 5127.84,
+          "signal_meta": {
+            "roc5": -0.402425428936551,
+            "roc10": -1.2189531026671292,
+            "momentum_strength": 1.6213785316036802
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -265,7 +364,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T19:57:02.824592+00:00",
+          "action": "BUY",
+          "market": "XAU/USDT:USDT",
+          "price": 5135.51,
+          "signal_meta": {
+            "roc5": 0.1771430801045676,
+            "roc10": 0.13123641079142523,
+            "momentum_strength": 0.3083794908959928
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -311,7 +423,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T19:54:30.134168+00:00",
+          "action": "SELL",
+          "market": "XAU/USDT:USDT",
+          "price": 5133.54,
+          "signal_meta": {
+            "sma_fast": 5129.812,
+            "sma_slow": 5148.790666666667,
+            "momentum": 0.3686043557671659
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -326,7 +451,7 @@
     }
   ],
   "history": [],
-  "lastUpdate": "2026-03-04T06:40:05.168816+00:00",
+  "lastUpdate": "2026-03-04T20:31:10.443756+00:00",
   "nextEvaluation": "2026-03-08",
   "note": "SHORT_TIMEFRAME_MODE: All strategies converted to 5m/15m/30m for rapid feedback loop (3-5 day evaluation cycles)"
 }

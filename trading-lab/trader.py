@@ -374,10 +374,18 @@ def scan_strategy(exchange, strategy_id, strategy_type, market, timeframe, has_o
     if strategy_type == 'trend':
         sma_fast = sum(closes[-5:]) / 5
         sma_slow = sum(closes[-15:]) / 15
-        # Enter on clear trend, hold until momentum fades
-        if sma_fast > sma_slow * 1.005:  # 0.5% momentum for entry
+        # ALPHA-001 (BTC/5m): 0.5% → 0.15% (0.005 → 0.0015)
+        # ETA-001 (XRP/15m): 0.6% → 0.2% (0.006 → 0.002)
+        # GOLD-30M (trend/30m): 0.2% → 0.08% (0.002 → 0.0008)
+        if 'GOLD-30M' in strategy_id:
+            threshold = 0.0008  # Aggressive trend catch
+        elif 'ETA-001' in strategy_id:
+            threshold = 0.002   # Lower from 0.006 to 0.002
+        else:  # ALPHA-001 and others default to 0.0015
+            threshold = 0.0015  # Aggressive momentum detection
+        if sma_fast > sma_slow * (1 + threshold):  # Adjustable momentum for entry
             return 'buy', {'sma_fast': sma_fast, 'sma_slow': sma_slow, 'momentum': (sma_fast/sma_slow-1)*100}
-        elif sma_fast < sma_slow * 0.995:
+        elif sma_fast < sma_slow * (1 - threshold):
             return 'sell', {'sma_fast': sma_fast, 'sma_slow': sma_slow, 'momentum': (1-sma_fast/sma_slow)*100}
 
     elif strategy_type == 'meanrev':
@@ -386,38 +394,86 @@ def scan_strategy(exchange, strategy_id, strategy_type, market, timeframe, has_o
         if std == 0:
             return 'hold', {}
         z_score = (current - sma20) / std
-        # Enter on extreme divergence (mean reversion potential)
-        if z_score < -1.5:  # Oversold - buy for bounce
+        # BETA-001 (ETH/15m): z-score -1.5 → -0.8 (more aggressive)
+        # GOLD-15M (meanrev/15m): z-score aggressive (use -1.0)
+        z_threshold = -0.8 if 'BETA-001' in strategy_id else (-1.0 if 'GOLD-15M' in strategy_id else -1.5)
+        if z_score < z_threshold:  # Oversold - buy for bounce
             return 'buy', {'z_score': z_score, 'sma20': sma20, 'target_revert': 3.0}
-        elif z_score > 1.5:  # Overbought - sell for pullback
+        elif z_score > -z_threshold:  # Overbought - sell for pullback
             return 'sell', {'z_score': z_score, 'sma20': sma20, 'target_revert': 3.0}
 
     elif strategy_type == 'breakout':
-        high_20 = max(closes[-20:])
-        low_20 = min(closes[-20:])
-        # Breakout entry for momentum moves
-        if current > high_20 * 1.002:  # 0.2% breakout confirmation
-            return 'buy', {'high_20': high_20, 'breakout_pct': (current/high_20-1)*100}
-        elif current < low_20 * 0.998:
-            return 'sell', {'low_20': low_20, 'breakout_pct': (1-current/low_20)*100}
+        # GOLD-15M: Switch from breakout to mean reversion (z-score)
+        if 'GOLD-15M' in strategy_id:
+            sma20 = sum(closes[-20:]) / 20
+            std = (sum((c - sma20)**2 for c in closes[-20:]) / 20) ** 0.5
+            if std == 0:
+                return 'hold', {}
+            z_score = (current - sma20) / std
+            # GOLD-15M: z-score aggressive (use -1.0)
+            z_threshold = -1.0
+            if z_score < z_threshold:  # Oversold - buy for bounce
+                return 'buy', {'z_score': z_score, 'sma20': sma20, 'strategy': 'mean_reversion_oversold'}
+            elif z_score > -z_threshold:  # Overbought - sell for pullback
+                return 'sell', {'z_score': z_score, 'sma20': sma20, 'strategy': 'mean_reversion_overbought'}
+        else:
+            # Standard breakout for other strategies
+            # GAMMA-001 (BTC/30m): breakout threshold 0.4% → 0.15% (0.004 → 0.0015)
+            high_20 = max(closes[-20:])
+            low_20 = min(closes[-20:])
+            breakout_threshold = 0.0015 if 'GAMMA-001' in strategy_id else 0.002
+            # Breakout entry for momentum moves
+            if current > high_20 * (1 + breakout_threshold):
+                return 'buy', {'high_20': high_20, 'breakout_pct': (current/high_20-1)*100}
+            elif current < low_20 * (1 - breakout_threshold):
+                return 'sell', {'low_20': low_20, 'breakout_pct': (1-current/low_20)*100}
 
     elif strategy_type == 'momentum':
         roc5 = (current - closes[-5]) / closes[-5] * 100
         roc10 = (current - closes[-10]) / closes[-10] * 100
         volumetric = sum(closes[-3:]) / sum(closes[-6:-3])  # Volume proxy
-        # Strong momentum entry
-        if roc5 > 2.0 and volumetric > 1.0:  # 2% momentum with volume
-            return 'buy', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': roc5 + roc10}
-        elif roc5 < -2.0 and volumetric < 1.0:
-            return 'sell', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': abs(roc5) + abs(roc10)}
+        
+        # DELTA-001 (ETH/5m): ROC 1.5% → 0.4%
+        # ZETA-001 (SOL/5m): ROC 1.5% → 0.4%
+        # GOLD-001 (1h): ROC 1.0% → 0.4%
+        # GOLD-5M (5m): ROC 0.3% → 0.1%
+        if 'DELTA-001' in strategy_id or 'ZETA-001' in strategy_id:
+            roc_threshold = 0.4  # Lower from 1.5% → 0.4%
+            volume_check = False
+        elif 'GOLD-001' in strategy_id:
+            roc_threshold = 0.4  # Lower from 1.0% → 0.4%
+            volume_check = False
+        elif 'GOLD-5M' in strategy_id:
+            roc_threshold = 0.1  # Lower from 0.3% → 0.1%
+            volume_check = False
+        else:
+            roc_threshold = 2.0  # Default for other momentum strategies
+            volume_check = True
+        
+        # Momentum entry with adjusted thresholds
+        if 'GOLD' in strategy_id or 'DELTA-001' in strategy_id or 'ZETA-001' in strategy_id:
+            # For GOLD and aggressive crypto: ignore volume requirement, just use ROC
+            if abs(roc5) > roc_threshold:
+                if roc5 > roc_threshold:
+                    return 'buy', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': roc5 + roc10}
+                else:
+                    return 'sell', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': abs(roc5) + abs(roc10)}
+        else:
+            # For non-GOLD: use original volume check
+            if roc5 > roc_threshold and volumetric > 1.0:
+                return 'buy', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': roc5 + roc10}
+            elif roc5 < -roc_threshold and volumetric < 1.0:
+                return 'sell', {'roc5': roc5, 'roc10': roc10, 'momentum_strength': abs(roc5) + abs(roc10)}
 
     elif strategy_type == 'swing':
         sma10 = sum(closes[-10:]) / 10
         sma30 = sum(closes[-30:]) / 30
+        # EPSILON-001 (BTC/15m): trend strength 0.4 → 0.15 (0.003 → 0.0015)
+        trend_strength_threshold = 0.0015 if 'EPSILON-001' in strategy_id else 0.003
         # Swing entry on confirmed direction
-        if current > sma10 and sma10 > sma30 * 1.003:  # Strong uptrend
+        if current > sma10 and sma10 > sma30 * (1 + trend_strength_threshold):  # Strong uptrend
             return 'buy', {'sma10': sma10, 'sma30': sma30, 'trend_strength': (current/sma10-1)*100}
-        elif current < sma10 and sma30 > sma10 * 1.003:  # Strong downtrend
+        elif current < sma10 and sma30 > sma10 * (1 + trend_strength_threshold):  # Strong downtrend
             return 'sell', {'sma10': sma10, 'sma30': sma30, 'trend_strength': (1-current/sma10)*100}
 
     return 'hold', {}
