@@ -1,0 +1,36 @@
+{
+  "lastUpdated": "2026-03-04T06:50:00Z",
+  "purpose": "Critical session facts before compression. Preserved across session resets.",
+  "criticalFacts": [
+    {
+      "key": "agency_directive",
+      "value": "Load memory before task. Save after. PROJECT_TRACKER.md is source of truth.",
+      "importance": "CRITICAL"
+    },
+    {
+      "key": "token_baseline_new",
+      "value": "1,560 tokens for system load (after COMPONENT 1 consolidation)",
+      "importance": "HIGH"
+    },
+    {
+      "key": "trading_lab_status",
+      "value": "11 active bots (7 crypto, 4 gold), 5-day eval cycles, expires 2026-03-08",
+      "importance": "HIGH"
+    },
+    {
+      "key": "linkedin_campaign_next_step",
+      "value": "Phase 1 complete. Awaiting Rahul approval for profile creation.",
+      "importance": "MEDIUM"
+    },
+    {
+      "key": "component_1_complete",
+      "value": "Context bloat audit done. 40% token reduction. 3 new consolidated files created.",
+      "importance": "HIGH"
+    }
+  ],
+  "sessionBoundaries": {
+    "createdDate": "2026-03-04",
+    "expiresDate": "2026-03-07",
+    "reason": "Snapshot for 7-day agency upgrade cycle"
+  }
+}
