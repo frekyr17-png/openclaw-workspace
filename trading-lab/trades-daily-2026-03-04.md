@@ -1,27 +1,25 @@
 # Trading Lab — Daily Report
-**Date:** 2026-03-04 · **Updated:** 03:07 UTC
+**Date:** 2026-03-04 · **Updated:** 06:40 UTC
 
 ---
 
-## 🟢 CLOSED TRADES TODAY (0)
+## 🟢 CLOSED TRADES TODAY (1)
 
 | Bot | Market | Action | Entry | Exit | Result | P/L % |
 |-----|--------|--------|-------|------|--------|-------|
-| — | — | — | — | — | — | — |
+| **ALPHA-001** | BTC/USDT | SELL | $66,572.3100 | $72,650.7000 | 🔴 LOSS | -9.13% |
 
-**Today's Net P/L:** +0.00%
+**Today's Net P/L:** -9.13%
 
 ---
 
-## 🟡 OPEN POSITIONS (6)
+## 🟡 OPEN POSITIONS (4)
 | Bot | Market | Action | Entry | Opened | Status |
 |-----|--------|--------|-------|--------|--------|
-| **ALPHA-001** | BTC/USDT | SELL | $66,572.3100 | 2026-03-03 15:00 | ⏳ HOLDING |
+| **ALPHA-001** | BTC/USDT | SELL | $67,564.4000 | 2026-03-04 03:45 | ⏳ HOLDING |
 | **BETA-001** | ETH/USDT | BUY | $1,938.3600 | 2026-03-03 14:45 | ⏳ HOLDING |
 | **EPSILON-001** | BTC/USDT | BUY | $68,262.2200 | 2026-03-03 17:30 | ⏳ HOLDING |
-| **GOLD-001** | XAU/USDT | SELL | $5,099.9900 | 2026-03-03 11:35 | ⏳ HOLDING |
-| **GOLD-5M** | XAU/USDT | SELL | $5,099.9900 | 2026-03-03 11:35 | ⏳ HOLDING |
-| **GOLD-30M** | XAU/USDT | SELL | $5,099.9900 | 2026-03-03 11:35 | ⏳ HOLDING |
+| **ETA-001** | XRP/USDT | SELL | $1.3530 | 2026-03-04 04:00 | ⏳ HOLDING |
 
 ---
 
@@ -29,7 +27,7 @@
 
 | Bot | Type | Market | TF | Wins | Losses | Win Rate | Net P/L |
 |-----|------|--------|----|------|--------|----------|---------|
-| **ALPHA-001** | trend | BTC/USDT | 5m | 0 | 0 | 0% | +0.00% |
+| **ALPHA-001** | trend | BTC/USDT | 5m | 0 | 1 | 0.0% | -9.13% |
 | **BETA-001** | meanrev | ETH/USDT | 15m | 0 | 0 | 0% | +0.00% |
 | **GAMMA-001** | breakout | BTC/USDT | 30m | 0 | 0 | 0% | +0.00% |
 | **DELTA-001** | momentum | ETH/USDT | 5m | 0 | 0 | 0% | +0.00% |

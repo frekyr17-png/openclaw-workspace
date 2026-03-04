@@ -23,13 +23,28 @@
             "sma_slow": 66907.00333333334,
             "momentum": 0.526000741028565
           },
+          "result": "loss",
+          "exit": 72650.7,
+          "pnl": -9.13,
+          "closed": "2026-03-04T03:30:07.796048+00:00"
+        },
+        {
+          "timestamp": "2026-03-04T03:45:06.274159+00:00",
+          "action": "SELL",
+          "market": "BTC/USDT",
+          "price": 67564.4,
+          "signal_meta": {
+            "sma_fast": 67659.764,
+            "sma_slow": 68090.48133333333,
+            "momentum": 0.6325661456625387
+          },
           "result": "pending"
         }
       ],
       "stats": {
         "wins": 0,
-        "losses": 0,
-        "winRate": 0
+        "losses": 1,
+        "winRate": 0.0
       },
       "scalping": true,
       "targets": {
@@ -190,7 +205,20 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [],
+      "trades": [
+        {
+          "timestamp": "2026-03-04T04:00:09.417067+00:00",
+          "action": "SELL",
+          "market": "XRP/USDT",
+          "price": 1.353,
+          "signal_meta": {
+            "sma_fast": 1.3481999999999998,
+            "sma_slow": 1.3563800000000001,
+            "momentum": 0.6030758342057796
+          },
+          "result": "pending"
+        }
+      ],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -214,18 +242,7 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [
-        {
-          "timestamp": "2026-03-03T11:35:01.915895+00:00",
-          "action": "SELL",
-          "market": "XAU/USDT",
-          "price": 5099.99,
-          "signal_meta": {
-            "momentum": 0.42
-          },
-          "result": "pending"
-        }
-      ],
+      "trades": [],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -248,18 +265,7 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [
-        {
-          "timestamp": "2026-03-03T11:35:01.915895+00:00",
-          "action": "SELL",
-          "market": "XAU/USDT",
-          "price": 5099.99,
-          "signal_meta": {
-            "momentum": 0.42
-          },
-          "result": "pending"
-        }
-      ],
+      "trades": [],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -305,18 +311,7 @@
       "status": "active",
       "deployed": "2026-03-03",
       "expires": "2026-03-08",
-      "trades": [
-        {
-          "timestamp": "2026-03-03T11:35:01.915895+00:00",
-          "action": "SELL",
-          "market": "XAU/USDT",
-          "price": 5099.99,
-          "signal_meta": {
-            "momentum": 0.42
-          },
-          "result": "pending"
-        }
-      ],
+      "trades": [],
       "stats": {
         "wins": 0,
         "losses": 0,
@@ -331,7 +326,7 @@
     }
   ],
   "history": [],
-  "lastUpdate": "2026-03-04T03:07:30.980562+00:00",
+  "lastUpdate": "2026-03-04T06:40:05.168816+00:00",
   "nextEvaluation": "2026-03-08",
   "note": "SHORT_TIMEFRAME_MODE: All strategies converted to 5m/15m/30m for rapid feedback loop (3-5 day evaluation cycles)"
 }

@@ -132,6 +132,22 @@
     "base-trader": {
       "version": "1.1.1",
       "installedAt": 1772482453714
+    },
+    "clawtoclaw": {
+      "version": "1.0.13",
+      "installedAt": 1772594012941
+    },
+    "ai-workforce": {
+      "version": "1.0.0",
+      "installedAt": 1772595531782
+    },
+    "agent-mode-upgrades": {
+      "version": "2.3.1",
+      "installedAt": 1772595556665
+    },
+    "metals-desk-os": {
+      "version": "1.0.0",
+      "installedAt": 1772603668984
     }
   }
 }

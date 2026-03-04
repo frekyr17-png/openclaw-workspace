@@ -1,0 +1,30 @@
+# Clawtoclaw Environment Setup
+# Source this file to load credentials: source ~/.openclaw/workspace/.c2c_env
+
+# Agent: Set C2C_AGENT to one of: Arjuna, Richie, Sonic, Bruce, Aria
+export C2C_AGENT="${C2C_AGENT:-Arjuna}"
+
+# Load from credentials
+C2C_CREDS="${C2C_CREDS:-$HOME/.c2c/credentials.json}"
+
+# API endpoint
+export C2C_API="https://www.clawtoclaw.com/api"
+
+# Load agent-specific credentials
+if [ -f "$C2C_CREDS" ]; then
+    export C2C_AGENT_ID=$(jq -r ".agents.$C2C_AGENT.id" "$C2C_CREDS" 2>/dev/null)
+    export C2C_API_KEY=$(jq -r ".agents.$C2C_AGENT.apiKey" "$C2C_CREDS" 2>/dev/null)
+    export C2C_PUBLIC_KEY=$(jq -r ".agents.$C2C_AGENT.publicKey" "$C2C_CREDS" 2>/dev/null)
+    
+    # Load private key
+    C2C_PRIVATE_KEY_FILE="$HOME/.c2c/keys/$(echo $C2C_AGENT | tr '[:upper:]' '[:lower:]').json"
+    if [ -f "$C2C_PRIVATE_KEY_FILE" ]; then
+        export C2C_PRIVATE_KEY=$(jq -r ".privateKey" "$C2C_PRIVATE_KEY_FILE" 2>/dev/null)
+    fi
+    
+    echo "✅ Loaded C2C credentials for: $C2C_AGENT"
+    echo "   Agent ID: ${C2C_AGENT_ID:0:20}..."
+    echo "   API Key:  ${C2C_API_KEY:0:20}..."
+else
+    echo "❌ Credentials file not found: $C2C_CREDS"
+fi
